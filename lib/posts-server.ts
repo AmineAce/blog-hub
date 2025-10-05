@@ -117,8 +117,17 @@ export function getAllPosts(): Post[] {
   const posts = slugs
     .map((slug) => getPostBySlug(slug))
     .filter((post): post is Post => post !== null)
-    .sort((a, b) => (a.date > b.date ? -1 : 1))
-  
+    .sort((a, b) => {
+      const dateA = new Date(a.date).getTime()
+      const dateB = new Date(b.date).getTime()
+      // Sort by date descending (newest first)
+      if (dateA !== dateB) {
+        return dateB - dateA
+      }
+      // If dates are the same, sort by title for consistent ordering
+      return a.title.localeCompare(b.title)
+    })
+
   return posts
 }
 

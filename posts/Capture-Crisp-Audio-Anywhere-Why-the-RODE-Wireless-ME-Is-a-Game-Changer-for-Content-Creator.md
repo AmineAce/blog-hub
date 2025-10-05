@@ -1,6 +1,6 @@
 ---
 title: "Capture Crisp Audio Anywhere: Why the RØDE Wireless ME Is a Game-Changer for Content Creators"
-date: "2024-09-10"
+date: "2024-10-5"
 excerpt: "Whether you're filming vlogs, interviews, or social clips, the RØDE Wireless ME compact wireless mic delivers pro-level sound in a pocket-sized package—perfect for smartphones and cameras alike."
 ---
 
