@@ -1,6 +1,7 @@
 ---
 title: "Capture Crisp Audio Anywhere: Why the Shure MV6 Is a Game-Changer for Content Creators"
-date: "2024-10-6"
+date: "2025-10-6"
+time: "16:45"
 excerpt: "Whether you're podcasting, streaming, or recording voiceovers, the Shure MV6 dynamic microphone delivers broadcast-quality sound with plug-and-play simplicity—perfect for USB and XLR setups alike."
 ---
 

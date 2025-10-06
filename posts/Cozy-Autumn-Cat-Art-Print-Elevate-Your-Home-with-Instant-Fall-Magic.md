@@ -1,6 +1,7 @@
 ---
 title: "Cozy Autumn Cat Art Print: Elevate Your Home with Instant Fall Magic"
 date: "2025-10-06"
+time: "13:35"
 excerpt: "As crisp leaves swirl and evenings call for blankets, discover how this enchanting Autumn Cat Art Print from Etsy can transform your living room into a warm haven of feline charm and seasonal bliss—no wait, just pure coziness."
 ---
 Cozy Autumn Cat Art Print: Elevate Your Home with Instant Fall Magic

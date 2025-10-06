@@ -6,6 +6,7 @@ export interface Post {
   slug: string
   title: string
   date: string
+  time: string
   excerpt: string
   content: string
   readTime: number
@@ -96,12 +97,33 @@ function getPostBySlug(slug: string): Post | null {
 
     const image = getImagePath(slug)
     const formattedDate = formatDate(data.date || '')
-    const uploadTimestamp = fileStats.mtime.getTime()
+    const time = data.time || ''
+    let uploadTimestamp: number
+
+    // Use date and time from frontmatter for uploadTimestamp
+    if (data.date) {
+      try {
+        // Normalize date to YYYY-MM-DD format with leading zeros
+        const normalizedDate = data.date.replace(/(\d{4})-(\d{1,2})-(\d{1,2})/, (match: string, year: string, month: string, day: string) => `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`)
+        const dateTimeString = time ? `${normalizedDate}T${time}:00` : `${normalizedDate}T00:00:00`
+        const parsedDate = new Date(dateTimeString)
+        if (!isNaN(parsedDate.getTime())) {
+          uploadTimestamp = parsedDate.getTime()
+        } else {
+          uploadTimestamp = fileStats.mtime.getTime()
+        }
+      } catch (error) {
+        uploadTimestamp = fileStats.mtime.getTime()
+      }
+    } else {
+      uploadTimestamp = fileStats.mtime.getTime()
+    }
 
     return {
       slug,
       title: data.title || '',
       date: data.date || '',
+      time,
       excerpt: data.excerpt || '',
       content,
       readTime: calculateReadTime(content),
@@ -117,20 +139,35 @@ function getPostBySlug(slug: string): Post | null {
 
 // Server-side functions
 export function getAllPosts(): Post[] {
-  const slugs = getPostSlugs()
+  const slugs = getPostSlugs();
   const posts = slugs
     .map((slug) => getPostBySlug(slug))
     .filter((post): post is Post => post !== null)
     .sort((a, b) => {
-      // Sort by uploadTimestamp descending (latest first)
-      if (a.uploadTimestamp !== b.uploadTimestamp) {
-        return b.uploadTimestamp - a.uploadTimestamp
-      }
-      // If timestamps are the same, sort by title for consistent ordering
-      return a.title.localeCompare(b.title)
-    })
+      // Ensure uploadTimestamp is a valid number; default to 0 if invalid
+      const timestampA = typeof a.uploadTimestamp === 'number' && !isNaN(a.uploadTimestamp) ? a.uploadTimestamp : 0;
+      const timestampB = typeof b.uploadTimestamp === 'number' && !isNaN(b.uploadTimestamp) ? b.uploadTimestamp : 0;
 
-  return posts
+      // Sort by uploadTimestamp descending (latest first)
+      if (timestampA !== timestampB) {
+        return timestampB - timestampA;
+      }
+
+      // If timestamps are the same, sort by title for consistent ordering
+      return a.title.localeCompare(b.title);
+    });
+
+  // Log for debugging
+  console.log(
+    'Sorted posts:',
+    posts.map((p) => ({
+      title: p.title,
+      uploadTimestamp: p.uploadTimestamp,
+      timestampReadable: p.uploadTimestamp ? new Date(p.uploadTimestamp).toISOString() : 'Invalid timestamp',
+    }))
+  );
+
+  return posts;
 }
 
 export { getPostBySlug }
