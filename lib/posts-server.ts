@@ -11,6 +11,7 @@ export interface Post {
   readTime: number
   image?: string
   formattedDate: string
+  uploadTimestamp: number
 }
 
 const postsDirectory = path.join(process.cwd(), 'posts')
@@ -84,17 +85,19 @@ function getPostSlugs(): string[] {
 function getPostBySlug(slug: string): Post | null {
   try {
     const fullPath = path.join(postsDirectory, `${slug}.md`)
-    
+
     if (!fs.existsSync(fullPath)) {
       return null
     }
-    
+
+    const fileStats = fs.statSync(fullPath)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
     const { data, content } = matter(fileContents)
-    
+
     const image = getImagePath(slug)
     const formattedDate = formatDate(data.date || '')
-    
+    const uploadTimestamp = fileStats.mtime.getTime()
+
     return {
       slug,
       title: data.title || '',
@@ -104,6 +107,7 @@ function getPostBySlug(slug: string): Post | null {
       readTime: calculateReadTime(content),
       image,
       formattedDate,
+      uploadTimestamp,
     }
   } catch (error) {
     console.error(`Error reading post ${slug}:`, error)
@@ -118,13 +122,11 @@ export function getAllPosts(): Post[] {
     .map((slug) => getPostBySlug(slug))
     .filter((post): post is Post => post !== null)
     .sort((a, b) => {
-      const dateA = new Date(a.date).getTime()
-      const dateB = new Date(b.date).getTime()
-      // Sort by date descending (newest first)
-      if (dateA !== dateB) {
-        return dateB - dateA
+      // Sort by uploadTimestamp descending (latest first)
+      if (a.uploadTimestamp !== b.uploadTimestamp) {
+        return b.uploadTimestamp - a.uploadTimestamp
       }
-      // If dates are the same, sort by title for consistent ordering
+      // If timestamps are the same, sort by title for consistent ordering
       return a.title.localeCompare(b.title)
     })
 
