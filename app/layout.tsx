@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Suspense } from "react"
+import Script from "next/script"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <Script src="https://analytics.ahrefs.com/analytics.js" data-key="8pU3/2nwOzKD0ZK+Hz5LDg" async />
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Suspense fallback={<div>Loading...</div>}>
