@@ -59,6 +59,18 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <Script src="https://analytics.ahrefs.com/analytics.js" data-key="8pU3/2nwOzKD0ZK+Hz5LDg" async />
+      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-0E1WF48W8E" />
+      <Script
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-0E1WF48W8E');
+          `,
+        }}
+      />
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Suspense fallback={<div>Loading...</div>}>
