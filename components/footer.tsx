@@ -6,7 +6,7 @@ export function Footer() {
           As an Amazon Associate, I earn from qualifying purchases.
         </p>
         <p className="mt-4 text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Blog Hub. All rights reserved.
+          © {new Date().getFullYear()} CompareClash. All rights reserved.
         </p>
       </div>
     </footer>

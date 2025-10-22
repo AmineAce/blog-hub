@@ -1,6 +1,6 @@
-# Blog Hub
+# CompareClash
 
-A modern, fast, and SEO-optimized blog built with Next.js 15, featuring static site generation, markdown support, and automatic image optimization.
+A modern, fast, and SEO-optimized comparison platform built with Next.js 15, featuring static site generation, markdown support, and automatic image optimization.
 
 ## ✨ Features
 

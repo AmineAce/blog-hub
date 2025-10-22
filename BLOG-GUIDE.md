@@ -1,6 +1,6 @@
-# Blog Hub - Complete Guide
+# CompareClash - Complete Guide
 
-Welcome to Blog Hub! This guide will help you understand how to use and customize your blog.
+Welcome to CompareClash! This guide will help you understand how to use and customize your blog.
 
 ## Table of Contents
 

@@ -16,10 +16,10 @@ export default function HomePage() {
       <section className="mb-20">
         <div className="mb-4">
           <h1 className="text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
-            Welcome to Blog Hub
+            Welcome to Compare Clash
           </h1>
           <p className="mt-4 text-lg text-muted-foreground text-pretty max-w-2xl">
-            Exploring ideas at the intersection of technology, design, and creativity.
+            Which technology truly wins? We test, compare, and reveal what matters.
           </p>
         </div>
 
