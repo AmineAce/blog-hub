@@ -1,6 +1,6 @@
 # CompareClash
 
-A modern, fast, and SEO-optimized comparison platform built with Next.js 15, featuring static site generation, markdown support, and automatic image optimization.
+A modern, fast, and SEO-optimized comparison blog built with Next.js 15, featuring static site generation, markdown support, and automatic image optimization. Focuses on head-to-head technology comparisons.
 
 ## ✨ Features
 
@@ -24,8 +24,8 @@ A modern, fast, and SEO-optimized comparison platform built with Next.js 15, fea
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/blog-hub.git
-   cd blog-hub
+   git clone https://github.com/AmineAce/blog-hub.git
+   cd compare-clash
    ```
 
 2. **Install dependencies**
@@ -53,12 +53,19 @@ A modern, fast, and SEO-optimized comparison platform built with Next.js 15, fea
    ---
    title: "My Awesome Blog Post"
    date: "2024-01-20"
-   excerpt: "A brief description of your post"
+   time: "14:30"
+   excerpt: "A brief description that appears on the homepage and blog listing pages"
    ---
-   
+
    # My Awesome Blog Post
-   
-   Write your content here using Markdown...
+
+   Write your content here using full Markdown syntax...
+
+   ## Subheading
+
+   - Lists
+   - With *italics* and **bold**
+   - [Links](https://example.com)
    ```
 
 3. **Add an image (optional)**:
@@ -90,18 +97,32 @@ A modern, fast, and SEO-optimized comparison platform built with Next.js 15, fea
 ## 📁 Project Structure
 
 ```
-blog-hub/
+compare-clash/
 ├── app/                    # Next.js app directory
 │   ├── page.tsx           # Home page
-│   ├── blog/              # Blog listing
-│   └── posts/[slug]/      # Individual posts
-├── components/            # React components
-├── lib/                   # Utility functions
-├── posts/                 # Markdown blog posts
+│   ├── blog/              # Blog listing with pagination
+│   └── posts/[slug]/      # Individual post pages
+├── components/            # React components (shadcn/ui)
+├── lib/                   # Utility functions and data handling
+│   ├── posts-server.ts    # Server-side post processing
+│   └── posts.tsx          # Post types and client-side logic
+├── posts/                 # Markdown blog posts with frontmatter
 ├── public/
-│   └── images/posts/      # Post images
-└── styles/               # Global styles
+│   └── images/posts/      # Post images (auto-matched by slug)
+├── styles/               # Global styles and Tailwind config
+└── next.config.mjs       # Next.js configuration for static export
 ```
+
+## 🏗️ Technology Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Styling**: Tailwind CSS v4 with custom design tokens
+- **UI Components**: Radix UI with shadcn/ui
+- **Typography**: Geist Sans & Mono fonts
+- **Icons**: Lucide React
+- **Content**: Markdown with gray-matter frontmatter
+- **Deployment**: Static export (Netlify/Vercel/GitHub Pages)
+- **Analytics**: Vercel Analytics + Google Analytics
 
 ## 🚀 Deployment
 
@@ -155,3 +176,7 @@ This project is open source and available under the [MIT License](LICENSE).
 ---
 
 **Happy Blogging!** 🚀
+
+---
+
+*Built with [Next.js](https://nextjs.org/) • Styled with [Tailwind CSS](https://tailwindcss.com/) • Hosted on [Vercel](https://vercel.com/)*

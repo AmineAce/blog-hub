@@ -1,6 +1,6 @@
-# Blog Hub - Deployment & Content Management Guide
+# CompareClash - Deployment & Content Management Guide
 
-This guide will help you deploy your blog to GitHub and Netlify, and manage content through GitHub.
+This guide will help you deploy your comparison blog to GitHub and Netlify, and manage content through GitHub.
 
 ## 🚀 Initial Deployment Setup
 
@@ -16,9 +16,9 @@ This guide will help you deploy your blog to GitHub and Netlify, and manage cont
    ```bash
    git init
    git add .
-   git commit -m "Initial commit: Blog Hub with static export and image support"
+   git commit -m "Initial commit: CompareClash blog with static export and image support"
    git branch -M main
-   git remote add origin https://github.com/YOUR_USERNAME/blog-hub.git
+   git remote add origin https://github.com/AmineAce/blog-hub.git
    git push -u origin main
    ```
 
@@ -62,16 +62,23 @@ This guide will help you deploy your blog to GitHub and Netlify, and manage cont
    ---
    title: "Your Amazing Blog Post Title"
    date: "2024-01-20"
-   excerpt: "A brief description of your post that will appear in listings"
+   time: "14:30"
+   excerpt: "A brief description of your post that will appear on the homepage and blog listings"
    ---
-   
+
    # Your Amazing Blog Post Title
-   
+
    Write your content here using Markdown syntax...
-   
+
    ## Subheading
-   
+
    More content...
+
+   ### Adding Links and Emphasis
+
+   - Use **bold** for emphasis
+   - Use *italics* for stress
+   - Add [affiliate links](https://amazon.com/your-link) for monetization
    ```
 
 3. **Add an image (optional):**
@@ -175,25 +182,30 @@ npm run start
 ## 📁 Project Structure
 
 ```
-blog-hub/
+compare-clash/
 ├── app/                    # Next.js app directory
-│   ├── page.tsx           # Home page
-│   ├── blog/              # Blog listing page
+│   ├── page.tsx           # Home page with featured post
+│   ├── blog/              # Blog listing page with pagination
 │   └── posts/[slug]/      # Individual post pages
-├── components/            # React components
-├── lib/                   # Utility functions
-├── posts/                 # Blog post markdown files
-│   ├── post-1.md
-│   ├── post-2.md
+├── components/            # React components (shadcn/ui)
+│   ├── header.tsx         # Navigation with logo
+│   ├── footer.tsx         # Footer with affiliate disclosure
+│   ├── blog-page-client.tsx # Client-side blog pagination
+│   └── markdown-content.tsx # Markdown rendering
+├── lib/                   # Utility functions and data handling
+│   ├── posts-server.ts    # Server-side post processing
+│   └── posts.tsx          # Post types and utilities
+├── posts/                 # Markdown blog posts with frontmatter
+│   ├── iphone-vs-samsung.md
+│   ├── camera-comparison.md
 │   └── ...
 ├── public/
-│   └── images/
-│       └── posts/         # Post images
-│           ├── post-1.jpg
-│           ├── post-2.png
-│           └── ...
-├── next.config.mjs        # Next.js configuration
-├── package.json           # Dependencies
+│   └── images/posts/      # Post images (auto-matched by slug)
+│       ├── iphone-vs-samsung.jpg
+│       ├── camera-comparison.png
+│       └── ...
+├── next.config.mjs        # Next.js configuration for static export
+├── package.json           # Dependencies (Next.js 15, React 19)
 └── DEPLOYMENT-GUIDE.md    # This guide
 ```
 

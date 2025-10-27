@@ -1,129 +1,202 @@
-# CompareClash - Complete Guide
+# CompareClash - Complete Blog Guide
 
-Welcome to CompareClash! This guide will help you understand how to use and customize your blog.
+Welcome to CompareClash! This is a modern Next.js blog focused on technology comparisons. This guide will help you understand how to use and customize your blog.
 
 ## Table of Contents
 
-1. [Project Structure](#project-structure)
-2. [Adding New Blog Posts](#adding-new-blog-posts)
-3. [Adding Images to Blog Posts](#adding-images-to-blog-posts)
-4. [Adding Ads and Affiliate Links](#adding-ads-and-affiliate-links)
-5. [Customizing Your Blog](#customizing-your-blog)
-6. [Deployment](#deployment)
+1. [Project Overview](#project-overview)
+2. [Project Structure](#project-structure)
+3. [Adding New Blog Posts](#adding-new-blog-posts)
+4. [Managing Images](#managing-images)
+5. [Customization](#customization)
+6. [Performance Features](#performance-features)
+7. [Monetization](#monetization)
+8. [Deployment](#deployment)
+9. [Tips for Success](#tips-for-success)
+
+---
+
+## Project Overview
+
+CompareClash is built with:
+- **Next.js 15** with App Router and static site generation
+- **Tailwind CSS** for styling with dark mode support
+- **Markdown** posts with gray-matter frontmatter processing
+- **Automatic image optimization** with Next.js Image component
+- **SEO optimized** with meta tags and structured data
+
+The blog specializes in head-to-head technology comparisons (phones, cameras, audio gear, etc.) with affiliate marketing integration.
 
 ---
 
 ## Project Structure
 
 \`\`\`
-blog-hub/
+compare-clash/
 ├── app/
-│   ├── page.tsx           # Homepage with hero and recent posts
+│   ├── page.tsx           # Homepage with featured post and recent posts
 │   ├── blog/
-│   │   └── page.tsx       # Blog list page with pagination
-│   └── posts/
-│       └── [slug]/
-│           └── page.tsx   # Individual post page
+│   │   └── page.tsx       # Blog listing with pagination (6 posts/page)
+│   └── posts/[slug]/
+│       └── page.tsx       # Individual post pages
 ├── components/
-│   ├── header.tsx         # Navigation header with dark mode toggle
+│   ├── header.tsx         # Navigation with logo and theme toggle
 │   ├── footer.tsx         # Footer with affiliate disclosure
+│   ├── blog-page-client.tsx # Client-side pagination logic
+│   ├── markdown-content.tsx # Markdown renderer with syntax highlighting
 │   ├── share-buttons.tsx  # Social sharing buttons
-│   └── markdown-content.tsx # Markdown renderer
+│   └── ui/                # shadcn/ui components
 ├── lib/
-│   └── posts.tsx          # Blog posts data
-└── public/
-    └── images/            # Store your images here
+│   ├── posts-server.ts    # Server-side post processing (file system)
+│   └── posts.tsx          # Post types and utilities
+├── posts/                 # Markdown posts with frontmatter
+│   ├── iphone-vs-samsung.md
+│   ├── camera-comparison.md
+│   └── ...
+├── public/images/posts/   # Post images (auto-matched by slug)
+├── styles/                # Tailwind config and globals
+├── next.config.mjs        # Static export configuration
+└── package.json
 \`\`\`
 
 ---
 
 ## Adding New Blog Posts
 
-All blog posts are stored in `lib/posts.tsx` as TypeScript objects. To add a new post:
+All blog posts are **markdown files** in the `posts/` directory with frontmatter metadata.
 
-1. Open `lib/posts.tsx`
-2. Add a new post object to the `postsData` array:
+### 1. Create a New Post File
 
-\`\`\`typescript
-{
-  slug: 'your-post-slug',
-  title: 'Your Post Title',
-  date: '2024-01-15',
-  excerpt: 'A brief description of your post that appears on the blog list page.',
-  image: '/placeholder.svg?height=400&width=800',
-  content: `
-Your full post content goes here in Markdown format.
-
-## You can use headings
-
-- Bullet points
-- More bullets
-
-**Bold text** and *italic text*
-
-[Links](https://example.com)
-
-And much more!
-  `
-}
+\`\`\`bash
+# Create a new markdown file in the posts directory
+touch posts/your-comparison-slug.md
 \`\`\`
 
-### Post Fields Explained:
+### 2. Add Frontmatter and Content
 
-- **slug**: URL-friendly identifier (e.g., `my-awesome-post`)
-- **title**: The post title displayed everywhere
-- **date**: Publication date in YYYY-MM-DD format
-- **excerpt**: Short description (2-3 sentences) for cards and previews
-- **image**: Path to image or placeholder URL
-- **content**: Full post content in Markdown format
+\`\`\`markdown
+---
+title: "iPhone 17 Pro Max vs Galaxy S25 Ultra: Ultimate Comparison"
+date: "2025-01-20"
+time: "14:30"
+excerpt: "Head-to-head comparison of the latest flagship phones covering camera, performance, and display specs"
+---
+
+# iPhone 17 Pro Max vs Galaxy S25 Ultra: Ultimate Comparison
+
+In this comprehensive comparison, we analyze Apple's iPhone 17 Pro Max against Samsung's Galaxy S25 Ultra across multiple dimensions.
+
+## Camera Comparison
+
+### Main Camera Specs
+- **Galaxy S25 Ultra**: 200MP main sensor (1.5x more resolution)
+- **iPhone 17 Pro Max**: 48MP main sensor with advanced computational photography
+
+### Video Features
+- **Cinematic mode**: Both support 4K@30fps cinematic video
+- **Slow motion**: iPhone offers superior 240fps at 1080p
+
+### Low Light Performance
+- **Winner: Galaxy** - Larger sensor with better night photography
+
+## Performance Benchmark
+
+### Raw Performance
+- **Galaxy**: Snapdragon 8 Elite (3.4GHz) with 16GB RAM
+- **iPhone**: A19 Pro chip (4.26GHz max) with 8GB RAM
+
+### Benchmark Scores
+- **AnTuTu**: Galaxy 2.2M+ vs iPhone 1.8M
+- **Geekbench**: Galaxy leads in multi-core performance
+
+## Display Comparison
+
+| Feature | Galaxy S25 Ultra | iPhone 17 Pro Max |
+|---------|------------------|-------------------|
+| Size | 6.9" | 6.9" |
+| Resolution | 3440x1440 QHD+ | 2800x1200 |
+| Brightness | 2600 nits peak | 1000 nits peak |
+| Refresh Rate | 120Hz adaptive | 120Hz ProMotion |
+
+## Recommendation
+
+### Buy the Galaxy S25 Ultra if you need:
+- Superior camera resolution for photography
+- Higher peak brightness for outdoor visibility
+- Better multi-core performance for gaming
+
+### Buy the iPhone 17 Pro Max if you need:
+- Superior video features and stabilization
+- Seamless iOS ecosystem integration
+- Better battery optimization
+
+## Where to Buy
+
+🏆 **Overall Winner: Galaxy S25 Ultra** (82/100 score)
+
+**Pricing**: Both start at $1199
+
+[![Galaxy S25 Ultra](https://images-na.ssl-images-amazon.com/images/I/71QX8b-%2B8WL.jpg)](https://amazon.com/galaxy-s25-ultra)
+[![iPhone 17 Pro Max](https://images-na.ssl-images-amazon.com/images/I/61bK6PMOC3L.jpg)](https://apple.com/iphone-17-pro-max)
+
+*Disclosure: Affiliate links help support this blog.*
+\`\`\`
+
+### Frontmatter Fields Explained:
+
+- **title**: Full title with comparison details
+- **date**: Publication date (YYYY-MM-DD)
+- **time**: Publication time (optional, HH:MM format)
+- **excerpt**: Short description for homepage/blog listings
+- **(No manual image field)**: Images auto-matched by post slug
+
+### Post Naming Convention
+
+- **File name**: Should be URL-friendly slug (no spaces, lowercase)
+- **Examples**:
+  - `iphone-17-vs-galaxy-s25-comparison.md`
+  - `best-camera-lenses-2025.md`
+  - `rodes-wireless-go-vs-boya-by-wm6.md`
 
 ---
 
-## Adding Images to Blog Posts
+## Managing Images
 
-### Option 1: Using Placeholder Images (Default)
+### Automatic Image Matching
 
-The blog comes with a placeholder image system that generates images based on descriptions:
+Post images are automatically matched by slug - no frontmatter required!
+
+**Naming convention:**
+- Post file: `posts/iphone-vs-samsung-comparison.md`
+- Image file: `public/images/posts/iphone-vs-samsung-comparison.jpg`
+
+### Supported Formats
+
+The system checks for these formats in order:
+1. `.jpg` / `.jpeg`
+2. `.png`
+3. `.webp`
+4. `.gif`
+
+### Inline Images in Posts
+
+Add images anywhere in your markdown content:
 
 \`\`\`markdown
-![Alt text](/placeholder.svg?height=400&width=800&query=mountain landscape sunset)
+![iPhone 17 Pro Max camera comparison](/images/posts/camera-specs.png)
+
+Here's a comparison chart:
+
+![Performance benchmarks](https://example.com/chart.png)
 \`\`\`
 
-Parameters:
-- `height`: Image height in pixels
-- `width`: Image width in pixels
-- `query`: Description of the image you want
+### Image Optimization Tips
 
-### Option 2: Using Your Own Images
-
-1. **Add images to the public folder:**
-   - Create folders in `public/images/` to organize your images
-   - Example: `public/images/blog/my-post-image.jpg`
-
-2. **Reference images in your post:**
-
-\`\`\`markdown
-![Alt text describing the image](/images/blog/my-post-image.jpg)
-\`\`\`
-
-3. **Update the post's featured image:**
-
-\`\`\`typescript
-{
-  slug: 'my-post',
-  title: 'My Post',
-  image: '/images/blog/featured-image.jpg', // Use your image path
-  content: `...`
-}
-\`\`\`
-
-### Image Best Practices:
-
-- **Featured images**: 1200x630px (optimal for social sharing)
-- **In-content images**: 800-1200px wide
-- **File formats**: JPG for photos, PNG for graphics with transparency
-- **Optimization**: Compress images before uploading (use tools like TinyPNG)
-- **Alt text**: Always include descriptive alt text for accessibility
+- **Size**: 1200x630px for featured images
+- **Format**: WebP for web, JPG for photos
+- **Compression**: Use TinyPNG or similar tools
+- **Alt text**: Always descriptive alt text
+- **Lazy loading**: Automatic with Next.js Image component
 
 ---
 
@@ -241,6 +314,72 @@ const POSTS_PER_PAGE = 6 // Change to your preferred number
 ### Customizing Social Share Buttons
 
 Edit `components/share-buttons.tsx` to add or remove social platforms.
+
+---
+
+## Performance Features
+
+CompareClash is optimized for speed and SEO:
+
+### Static Site Generation
+- All posts pre-built as static HTML
+- Lightning-fast loading times
+- No server-side processing needed
+
+### Automatic Optimizations
+- **Images**: Next.js Image optimization with WebP/AVIF support
+- **Bundles**: Code splitting and tree shaking
+- **Fonts**: Geist font loading optimization
+- **CSS**: Tailwind purging removes unused styles
+
+### SEO Features
+- Meta tags for each post (title, description, Open Graph)
+- Structured data (JSON-LD) for search engines
+- Automatic sitemap generation
+- Robots.txt configuration
+
+### Analytics Integration
+- Vercel Analytics for traffic stats
+- Google Analytics 4 support
+- Ahrefs for backlink tracking
+
+### Performance Metrics
+- Lighthouse score: 100/100 possible
+- Core Web Vitals optimized
+- Mobile-first responsive design
+- Console logging disabled in production
+
+---
+
+## Monetization
+
+### Affiliate Marketing
+- Amazon Associates integration
+- Product comparison reviews
+- Strategic affiliate links in content
+
+### Ad Integration
+- Google AdSense ready
+- Custom ad placements in posts
+- Ad slots before/after content
+- Banner ad positions
+
+### SEO Optimization
+- Keyword-optimized comparison titles
+- Internal linking strategy
+- Backlink building through quality content
+
+### Revenue Streams
+1. **Affiliate commissions** from product links
+2. **Display advertising** (AdSense, etc.)
+3. **Sponsored content** opportunities
+4. **Lead generation** for tech brands
+
+### Monetization Tips
+- Always disclose affiliate relationships
+- Add value before promotional content
+- Use strategic link placements
+- Track conversions with affiliate networks
 
 ---
 
