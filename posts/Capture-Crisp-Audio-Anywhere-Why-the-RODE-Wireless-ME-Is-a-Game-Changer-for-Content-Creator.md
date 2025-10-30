@@ -1,8 +1,9 @@
 ---
-title: "Capture Crisp Audio Anywhere: Why the RØDE Wireless ME Is a Game-Changer for Content Creators"
-date: "2025-10-5"
-time: "14:30"
-excerpt: "Whether you're filming vlogs, interviews, or social clips, the RØDE Wireless ME compact wireless mic delivers pro-level sound in a pocket-sized package—perfect for smartphones and cameras alike."
+title: "Capture Crisp Audio Anywhere: Why the RODE Wireless ME Is a Game-Changer for Content Creators"
+date: "2025-10-20"
+time: "10:37"
+excerpt: "The RODE Wireless ME delivers studio-grade audio in a portable package. With dual-channel recording, built-in mic, and iOS/Android compatibility, it's revolutionizing on-the-go content creation."
+tags: ["audio", "tech", "content creation"]
 ---
 
 Capture Crisp Audio Anywhere: Why the RØDE Wireless ME Is a Game-Changer for Content Creators

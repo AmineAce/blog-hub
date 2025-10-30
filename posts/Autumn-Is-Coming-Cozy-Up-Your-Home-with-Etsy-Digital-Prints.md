@@ -3,6 +3,7 @@ title: "Autumn Is Coming: Cozy Up Your Home with Etsy Digital Prints"
 date: "2024-10-1"
 time: "12:00"
 excerpt: "As the leaves begin to turn and the air grows crisp, discover how Etsy digital prints can instantly bring warm autumn vibes into your home—no shipping, no wait, just instant seasonal charm."
+tags: ["home decor", "art", "autumn"]
 ---
 
 Autumn Is Coming: Cozy Up Your Home with Etsy Digital Prints

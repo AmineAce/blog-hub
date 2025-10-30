@@ -3,6 +3,7 @@ title: "iPhone 17 Pro Max vs Galaxy S25 Ultra: Head-to-Head Comparison"
 date: "2025-10-23"
 time: "11:47"
 excerpt: "The Galaxy S25 Ultra beats the iPhone 17 Pro Max with a 200MP camera, 2.2M AnTuTu performance, and 2600-nit QHD+ display (99 vs 84)"
+tags: ["phones", "tech", "comparison"]
 ---
 
 iPhone 17 Pro Max vs Galaxy S25 Ultra: Head-to-Head Comparison

@@ -7,6 +7,7 @@ export interface Post {
   readTime: number
   image?: string
   formattedDate: string
+  tags: string[]
 }
 
 // Client-side functions - return empty array since we only want server-side posts
