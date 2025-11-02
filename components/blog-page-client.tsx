@@ -55,7 +55,7 @@ export function BlogPageClient({ posts }: BlogPageClientProps) {
       ) : (
         <>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {currentPosts.map((post) => (
+            {currentPosts.map((post, index) => (
               <Link key={post.slug} href={`/posts/${post.slug}`} className="group">
                 <Card className="h-full overflow-hidden border-border/50 hover:border-border transition-colors">
                   <div className="relative aspect-video overflow-hidden">
@@ -64,6 +64,8 @@ export function BlogPageClient({ posts }: BlogPageClientProps) {
                       alt={post.title}
                       fill
                       className="object-cover transition-transform group-hover:scale-105"
+                      priority={index < 3} // Prioritize first 3 images
+                      quality={85}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   </div>

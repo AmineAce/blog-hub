@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
-import Image from "next/image"
 import Link from "next/link"
 import { Clock, ArrowLeft } from "lucide-react"
+import Image from "next/image"
 import { ShareButtons } from "@/components/share-buttons"
 import { getAllPosts, getPostBySlug } from "@/lib/posts-server"
 import { MarkdownContent } from "@/components/markdown-content"
@@ -37,6 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description: post.excerpt,
       type: 'article',
       publishedTime: post.date,
+      images: post.image ? [post.image] : [],
     },
   }
 }
@@ -74,14 +75,15 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       </header>
 
       {post.image && (
-        <div className="relative aspect-video mb-8 overflow-hidden rounded-lg">
+        <div className="relative w-full aspect-video overflow-hidden rounded-lg mb-8">
           <Image
             src={post.image}
             alt={post.title}
             fill
-            className="object-cover"
-            priority
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="rounded-lg shadow-lg object-cover"
+            priority={true}
+            quality={90}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"
           />
         </div>
       )}
@@ -94,7 +96,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <aside className="mt-12 pt-8 border-t border-border">
           <h3 className="text-2xl font-semibold tracking-tight mb-6">Related Posts</h3>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {relatedPosts.map((relatedPost) => (
+            {relatedPosts.map((relatedPost, index) => (
               <Link key={relatedPost.slug} href={`/posts/${relatedPost.slug}`} className="group">
                 <Card className="h-full overflow-hidden border-border/50 hover:border-border transition-colors">
                   <div className="relative aspect-video overflow-hidden">
@@ -103,6 +105,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                       alt={relatedPost.title}
                       fill
                       className="object-cover transition-transform group-hover:scale-105"
+                      priority={index < 2} // Prioritize first 2 related posts
+                      quality={85}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   </div>

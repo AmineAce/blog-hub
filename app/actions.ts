@@ -11,12 +11,12 @@ export async function initializeSearchIndex() {
   const posts = getAllPosts()
 
   miniSearch = new MiniSearch({
-    fields: ['title', 'excerpt', 'content', 'tags'], // fields to index
-    storeFields: ['title', 'excerpt', 'slug', 'formattedDate', 'tags', 'image'], // fields to store for results
+    fields: ['title', 'excerpt', 'content', 'tags', 'categories'], // fields to index
+    storeFields: ['title', 'excerpt', 'slug', 'formattedDate', 'tags', 'categories', 'image'], // fields to store for results
     searchOptions: {
       fuzzy: 0.2, // fuzzy matching
       prefix: true, // prefix matching
-      boost: { title: 3, tags: 2, excerpt: 1.5 }, // boost title and tags higher
+      boost: { title: 3, tags: 2, categories: 2, excerpt: 1.5 }, // boost title, tags and categories higher
     }
   })
 
@@ -27,6 +27,7 @@ export async function initializeSearchIndex() {
     excerpt: post.excerpt,
     content: post.content,
     tags: post.tags.join(' '),
+    categories: post.categories.join(' '),
     slug: post.slug,
     formattedDate: post.formattedDate,
     image: post.image,
@@ -45,6 +46,7 @@ export async function searchPosts(query: string, limit = 10) {
     slug: (result as any).slug,
     formattedDate: (result as any).formattedDate,
     tags: (result as any).tags ? (result as any).tags.split(' ') : [],
+    categories: (result as any).categories ? (result as any).categories.split(' ') : [],
     image: (result as any).image
   }))
 }
@@ -56,12 +58,13 @@ export async function getFilteredPosts(searchQuery: string, selectedCategory: st
     posts = posts.filter(post =>
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+      post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      post.categories.some(category => category.toLowerCase().includes(searchQuery.toLowerCase()))
     )
   }
 
   if (selectedCategory && selectedCategory !== 'all') {
-    posts = posts.filter(post => post.tags.includes(selectedCategory))
+    posts = posts.filter(post => post.categories.includes(selectedCategory))
   }
 
   return posts // Already sorted by uploadTimestamp desc

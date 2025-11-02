@@ -1,30 +1,30 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
-import { getAllPosts, getPostsByTag } from "@/lib/posts-server"
+import { getAllPosts, getPostsByCategory } from "@/lib/posts-server"
 import { Clock, ArrowLeft } from "lucide-react"
 import { notFound } from "next/navigation"
 
 export async function generateStaticParams() {
-  const tags = await getAllPosts()
-    .flatMap(post => post.tags)
-    .filter((tag, index, arr) => arr.indexOf(tag) === index)
-    .map(tag => ({ category: tag }))
+  const categories = await getAllPosts()
+    .flatMap(post => post.categories)
+    .filter((category, index, arr) => arr.indexOf(category) === index)
+    .map(category => ({ category: category }))
 
-  return tags
+  return categories
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params
   return {
     title: `${category.charAt(0).toUpperCase() + category.slice(1)} - Compare Clash`,
-    description: `Articles tagged with ${category}`,
+    description: `Articles in the ${category} category`,
   }
 }
 
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params
-  const posts = getPostsByTag(category)
+  const posts = getPostsByCategory(category)
 
   if (posts.length === 0) {
     notFound()
@@ -44,7 +44,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           {category.charAt(0).toUpperCase() + category.slice(1)}
         </h1>
         <p className="mt-4 text-lg text-muted-foreground text-pretty">
-          All posts tagged with "{category}"
+          All posts in the "{category}" category
         </p>
       </div>
 

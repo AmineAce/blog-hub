@@ -1,9 +1,21 @@
 ---
-title: "The Allure of the Casino Cat: Why Every Man Cave Needs This Sophisticated Feline Gambler Poster"
-date: "2024-11-20"
-time: "18:00"
-excerpt: "Add a dash of feline flair to your man cave with this digital casino cat poster. Featuring a sleek tabby in tuxedo and bowtie, it's bold, sophisticated, and endlessly entertaining."
-tags: ["home decor", "art", "man cave", "fun"]
+title: >-
+  The Allure of the Casino Cat: Why Every Man Cave Needs This Sophisticated
+  Feline Gambler Poster
+date: 2024-10-3
+time: '12:00'
+excerpt: >-
+  Elevate your man cave with a sleek casino-themed cat art print from Etsy. This
+  digital poster features a tuxedo-clad feline gambler, perfect for instant room
+  decor with high-res prints in multiple sizes.
+tags:
+  - home decor
+  - art
+  - cats
+categories:
+  - Reviews
+image: >-
+  /images/posts/The-Allure-of-the-Casino-Cat-Why-Every-Man-Cave-Needs-This-Sophisticated-Feline-Gambler-Poster.webp
 ---
 Add Whisker-Fueled Swagger to Your Space: Why the Casino Cat Poster Is a Must-Have
 

@@ -1,9 +1,22 @@
 ---
-title: "Capture Crisp Audio Anywhere: Why the RODE Wireless ME Is a Game-Changer for Content Creators"
-date: "2025-10-20"
-time: "10:37"
-excerpt: "The RODE Wireless ME delivers studio-grade audio in a portable package. With dual-channel recording, built-in mic, and iOS/Android compatibility, it's revolutionizing on-the-go content creation."
-tags: ["audio", "tech", "content creation"]
+title: >-
+  Capture Crisp Audio Anywhere: Why the RODE Wireless ME Is a Game Changer for
+  Content Creator
+date: '2025-10-30'
+time: '12:00'
+excerpt: >-
+  The RODE Wireless ME microphone combo delivers studio-quality sound with
+  built-in rechargeable batteries, up to 100 meters of range, intuitive app
+  control, and Safety Channel tech—ideal for YouTubers, podcasters, and
+  filmmakers.
+tags:
+  - audio
+  - microphones
+  - content creation
+categories:
+  - Reviews
+image: >-
+  /images/posts/Capture-Crisp-Audio-Anywhere-Why-the-RODE-Wireless-ME-Is-a-Game-Changer-for-Content-Creator.webp
 ---
 
 Capture Crisp Audio Anywhere: Why the RØDE Wireless ME Is a Game-Changer for Content Creators

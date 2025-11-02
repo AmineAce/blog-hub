@@ -14,6 +14,7 @@ export interface Post {
   formattedDate: string
   uploadTimestamp: number
   tags: string[]
+  categories: string[]
 }
 
 const postsDirectory = path.join(process.cwd(), 'posts')
@@ -132,6 +133,7 @@ function getPostBySlug(slug: string): Post | null {
       formattedDate,
       uploadTimestamp,
       tags: data.tags || [],
+      categories: data.categories || [],
     }
   } catch (error) {
     console.error(`Error reading post ${slug}:`, error)
@@ -187,4 +189,19 @@ export function getAllTags(): string[] {
     post.tags.forEach(tag => tags.add(tag))
   })
   return Array.from(tags).sort()
+}
+
+// Category-specific functions
+export function getPostsByCategory(category: string): Post[] {
+  const posts = getAllPosts()
+  return posts.filter((post) => post.categories.includes(category))
+}
+
+export function getAllCategories(): string[] {
+  const posts = getAllPosts()
+  const categories = new Set<string>()
+  posts.forEach(post => {
+    post.categories.forEach(category => categories.add(category))
+  })
+  return Array.from(categories).sort()
 }

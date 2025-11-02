@@ -1,9 +1,22 @@
 ---
-title: "Capture Crisp Audio Anywhere: Why the Shure MV6 Is a Game-Changer for Content Creators"
-date: "2025-10-15"
-time: "14:00"
-excerpt: "Shure’s first smartphone microphone, the MV6 XLR/USB captures studio-quality audio on the go. With interchangeable capsules, onboard DSP, and XLR versatility, it elevates mobile content production."
-tags: ["audio", "tech", "microphones"]
+title: >-
+  Capture Crisp Audio Anywhere: Why the Shure MV6 Is a Game Changer for Content
+  Creators
+date: '2025-10-29'
+time: '12:00'
+excerpt: >-
+  The Shure MV6 USB microphone delivers XLR-quality audio, multi-pattern
+  versatility, motorized capsule, and DSP effects—all controlled via ShurePlus
+  MOTIV software. Perfect for podcasters, streamers, and musicians seeking
+  professional-grade sound on a budget.
+tags:
+  - audio
+  - microphones
+  - content creation
+categories:
+  - Reviews
+image: >-
+  /images/posts/Capture-Crisp-Audio-Anywhere-Why-the-Shure-MV6-Is-a-Game-Changer-for-Content-Creators.webp
 ---
 
 Capture Crisp Audio Anywhere: Why the Shure MV6 Is a Game-Changer for Content Creators

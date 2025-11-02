@@ -9,12 +9,12 @@ export function initializeSearchIndex() {
   const posts = getAllPosts()
 
   miniSearch = new MiniSearch({
-    fields: ['title', 'excerpt', 'content', 'tags'], // fields to index
-    storeFields: ['title', 'excerpt', 'slug', 'formattedDate', 'tags'], // fields to store for results
+    fields: ['title', 'excerpt', 'content', 'tags', 'categories'], // fields to index
+    storeFields: ['title', 'excerpt', 'slug', 'formattedDate', 'tags', 'categories'], // fields to store for results
     searchOptions: {
       fuzzy: 0.2, // fuzzy matching
       prefix: true, // prefix matching
-      boost: { title: 3, tags: 2, excerpt: 1.5 }, // boost title and tags higher
+      boost: { title: 3, tags: 2, categories: 2, excerpt: 1.5 }, // boost title, tags and categories higher
     }
   })
 
@@ -25,6 +25,7 @@ export function initializeSearchIndex() {
     excerpt: post.excerpt,
     content: post.content,
     tags: post.tags.join(' '),
+    categories: post.categories.join(' '),
     slug: post.slug,
     formattedDate: post.formattedDate,
   })))
