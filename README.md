@@ -1,24 +1,26 @@
 # CompareClash
 
-A modern, fast, and SEO-optimized comparison blog built with Next.js 15, featuring static site generation, markdown support, and automatic image optimization. Focuses on head-to-head technology comparisons.
+A modern, fast, and SEO-optimized comparison blog built with Next.js 15, featuring static site generation, markdown support, and WebP image optimization. Focuses on head-to-head technology comparisons with a clean, responsive design.
 
 ## ✨ Features
 
-- **Static Site Generation (SSG)** - Lightning-fast performance
-- **Markdown Support** - Write posts in Markdown with frontmatter
-- **Image Optimization** - Automatic image handling with fallbacks
-- **Responsive Design** - Mobile-first, beautiful UI
+- **Static Site Generation (SSG)** - Lightning-fast performance with optimized builds
+- **Markdown Support** - Write posts in Markdown with frontmatter parsing
+- **WebP Image Optimization** - Modern image format with automatic optimization
+- **Responsive Design** - Mobile-first, beautiful UI with shadcn/ui components
 - **SEO Optimized** - Meta tags, Open Graph, and structured data
-- **Dark Mode** - Built-in theme switching
-- **Reading Time** - Automatic calculation based on content
+- **Dark Mode** - Built-in theme switching with next-themes
+- **Search & Filter** - Client-side search with category filtering
+- **Reading Time** - Automatic calculation based on content length
 - **Date Formatting** - Human-readable date display
-- **GitHub Integration** - Easy content management via Git
+- **Pagination** - Blog post pagination for better performance
+- **Share Buttons** - Social media sharing functionality
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 - Node.js 18+ 
-- npm or yarn
+- npm or pnpm
 
 ### Installation
 
@@ -31,15 +33,19 @@ A modern, fast, and SEO-optimized comparison blog built with Next.js 15, featuri
 2. **Install dependencies**
    ```bash
    npm install
+   # or
+   pnpm install
    ```
 
 3. **Start development server**
    ```bash
    npm run dev
+   # or
+   pnpm dev
    ```
 
 4. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+   Navigate to [http://localhost:3001](http://localhost:3001)
 
 ## 📝 Adding Blog Posts
 
@@ -55,6 +61,12 @@ A modern, fast, and SEO-optimized comparison blog built with Next.js 15, featuri
    date: "2024-01-20"
    time: "14:30"
    excerpt: "A brief description that appears on the homepage and blog listing pages"
+   tags:
+     - technology
+     - review
+   categories:
+     - Technology
+   image: /images/posts/my-awesome-post.webp
    ---
 
    # My Awesome Blog Post
@@ -68,9 +80,9 @@ A modern, fast, and SEO-optimized comparison blog built with Next.js 15, featuri
    - [Links](https://example.com)
    ```
 
-3. **Add an image (optional)**:
+3. **Add a WebP image (recommended)**:
    ```bash
-   cp my-image.jpg public/images/posts/my-awesome-post.jpg
+   cp my-image.webp public/images/posts/my-awesome-post.webp
    ```
 
 4. **Commit and push**:
@@ -84,8 +96,9 @@ A modern, fast, and SEO-optimized comparison blog built with Next.js 15, featuri
 
 - **Location**: `public/images/posts/`
 - **Naming**: Must match post slug exactly
-- **Formats**: JPG, PNG, WebP, GIF
-- **Example**: Post `react-tutorial` → Image `react-tutorial.jpg`
+- **Formats**: WebP (recommended), JPG, PNG
+- **Example**: Post `react-tutorial` → Image `react-tutorial.webp`
+- **Optimization**: Images are automatically optimized by Next.js
 
 ## 🛠️ Available Scripts
 
@@ -99,60 +112,92 @@ A modern, fast, and SEO-optimized comparison blog built with Next.js 15, featuri
 ```
 compare-clash/
 ├── app/                    # Next.js app directory
-│   ├── page.tsx           # Home page
+│   ├── page.tsx           # Home page with hero section
 │   ├── blog/              # Blog listing with pagination
-│   └── posts/[slug]/      # Individual post pages
-├── components/            # React components (shadcn/ui)
-├── lib/                   # Utility functions and data handling
+│   ├── posts/[slug]/      # Individual post pages
+│   └── categories/        # Category-based filtering
+├── components/            # React components
+│   ├── ui/               # shadcn/ui components (minimal set)
+│   ├── blog-page-client.tsx
+│   ├── blog-pagination.tsx
+│   ├── header.tsx
+│   ├── footer.tsx
+│   └── ...
+├── lib/                   # Utility functions
 │   ├── posts-server.ts    # Server-side post processing
-│   └── posts.tsx          # Post types and client-side logic
+│   ├── posts.tsx          # Post types and client logic
+│   ├── search.ts          # Search functionality
+│   └── related-posts.ts   # Related posts algorithm
 ├── posts/                 # Markdown blog posts with frontmatter
 ├── public/
-│   └── images/posts/      # Post images (auto-matched by slug)
-├── styles/               # Global styles and Tailwind config
-└── next.config.mjs       # Next.js configuration for static export
+│   └── images/posts/      # Post images (WebP format)
+└── styles/               # Global styles
 ```
 
 ## 🏗️ Technology Stack
 
 - **Framework**: Next.js 15 with App Router
 - **Styling**: Tailwind CSS v4 with custom design tokens
-- **UI Components**: Radix UI with shadcn/ui
-- **Typography**: Geist Sans & Mono fonts
+- **UI Components**: Minimal shadcn/ui components (button, card, input, select, dialog, badge)
 - **Icons**: Lucide React
 - **Content**: Markdown with gray-matter frontmatter
-- **Deployment**: Static export (Netlify/Vercel/GitHub Pages)
-- **Analytics**: Vercel Analytics + Google Analytics
+- **Search**: MiniSearch for client-side search
+- **Deployment**: Static export for any static hosting
+- **Analytics**: Vercel Analytics
 
 ## 🚀 Deployment
 
-This blog is optimized for static deployment. See [DEPLOYMENT-GUIDE.md](./DEPLOYMENT-GUIDE.md) for detailed deployment instructions.
+This blog is optimized for static deployment to platforms like:
 
-### Quick Deploy to Netlify
+- **Vercel** (recommended)
+- **Netlify**
+- **GitHub Pages**
+- **Any static hosting service**
 
-1. Connect your GitHub repository to Netlify
-2. Set build command: `npm run build`
-3. Set publish directory: `out`
-4. Deploy!
+### Build for Production
+
+```bash
+npm run build
+```
+
+The built files will be in the `out/` directory.
 
 ## 🎨 Customization
 
 ### Styling
 - Built with Tailwind CSS
 - Customize colors in `app/globals.css`
-- Modify components in the `components/` directory
+- Components use CSS variables for theming
 
 ### Content
 - Edit `app/page.tsx` for homepage content
 - Modify `app/layout.tsx` for site metadata
 - Update `components/header.tsx` and `components/footer.tsx`
 
+### Features
+- Search functionality: `lib/search.ts`
+- Related posts algorithm: `lib/related-posts.ts`
+- Post processing: `lib/posts-server.ts`
+
 ## 📊 Performance
 
-- **Lighthouse Score**: 100/100
+- **Lighthouse Score**: 100/100 (Performance, Accessibility, Best Practices, SEO)
 - **Core Web Vitals**: Optimized
 - **Bundle Size**: Minimized with tree shaking
-- **Images**: Optimized with Next.js Image component
+- **Images**: WebP format with Next.js optimization
+- **Static Generation**: Pre-built pages for instant loading
+
+## 🔧 Configuration
+
+### Next.js Configuration
+- Static export enabled in `next.config.mjs`
+- WebP and AVIF image formats supported
+- Optimized for production builds
+
+### Content Configuration
+- Posts are automatically sorted by date
+- Search indexes are built at runtime
+- Related posts use content similarity algorithm
 
 ## 🤝 Contributing
 
@@ -171,7 +216,7 @@ This project is open source and available under the [MIT License](LICENSE).
 - Built with [Next.js](https://nextjs.org/)
 - Styled with [Tailwind CSS](https://tailwindcss.com/)
 - Icons by [Lucide](https://lucide.dev/)
-- UI components by [Radix UI](https://www.radix-ui.com/)
+- UI components by [shadcn/ui](https://ui.shadcn.com/)
 
 ---
 
@@ -179,4 +224,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-*Built with [Next.js](https://nextjs.org/) • Styled with [Tailwind CSS](https://tailwindcss.com/) • Hosted on [Vercel](https://vercel.com/)*
+*Built with [Next.js](https://nextjs.org/) • Styled with [Tailwind CSS](https://tailwindcss.com/) • Optimized for [Vercel](https://vercel.com/)*
