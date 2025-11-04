@@ -7,6 +7,7 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Suspense } from "react"
 import Script from "next/script"
+import { generateOrganizationSchema, generateWebsiteSchema } from "@/lib/structured-data"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -56,6 +57,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const organizationSchema = generateOrganizationSchema()
+  const websiteSchema = generateWebsiteSchema()
+  
   return (
     <html lang="en" suppressHydrationWarning>
       <Script src="https://analytics.ahrefs.com/analytics.js" data-key="8pU3/2nwOzKD0ZK+Hz5LDg" async />
@@ -71,6 +75,19 @@ export default function RootLayout({
           `,
         }}
       />
+      
+      {/* Structured Data Scripts */}
+      <Script
+        id="organization-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <Script
+        id="website-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Suspense fallback={<div>Loading...</div>}>
