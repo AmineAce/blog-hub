@@ -1,7 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { GeistSans } from "geist/font/sans"
-import { GeistMono } from "geist/font/mono"
+import { Inter, JetBrains_Mono } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
@@ -9,6 +8,17 @@ import { Suspense } from "react"
 import Script from "next/script"
 import { generateOrganizationSchema, generateWebsiteSchema } from "@/lib/structured-data"
 import "./globals.css"
+
+// Configure fonts
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: "--font-inter",
+})
+
+const jetbrainsMono = JetBrains_Mono({ 
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+})
 
 export const metadata: Metadata = {
   title: "CompareClash - Thoughts & Insights",
@@ -88,7 +98,7 @@ export default function RootLayout({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
       
-      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
+      <body className={`font-sans ${inter.variable} ${jetbrainsMono.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Suspense fallback={<div>Loading...</div>}>
             <div className="flex min-h-screen flex-col">
