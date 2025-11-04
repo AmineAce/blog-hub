@@ -7,7 +7,7 @@ import { Clock, Search, ArrowRight } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { searchPosts } from "@/app/actions"
+import { searchPosts } from "@/lib/search"
 import Image from "next/image"
 
 interface SearchDialogProps {

@@ -1,4 +1,4 @@
-import { getAllPosts } from '@/lib/posts-server'
+import { getAllPosts } from '@/lib/posts-static'
 import { MetadataRoute } from 'next'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://compareclash.netlify.app/'

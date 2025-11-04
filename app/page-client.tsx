@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Clock } from "lucide-react"
 import { useState, useMemo } from "react"
-import { Post } from "@/lib/posts-server"
+import { Post } from "@/lib/posts-static"
 
 interface HomePageClientProps {
   posts: Post[]

@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
-import { getAllPosts } from "@/lib/posts-server"
+import { getAllPosts } from "@/lib/posts-static"
 import { Clock } from "lucide-react"
 import { BlogPageClient } from "@/components/blog-page-client"
 import { generateBlogSchema } from "@/lib/structured-data"

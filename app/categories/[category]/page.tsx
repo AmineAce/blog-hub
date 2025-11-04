@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
-import { getAllPosts, getPostsByCategory } from "@/lib/posts-server"
+import { getAllPosts, getPostsByCategory } from "@/lib/posts-static"
 import { Clock, ArrowLeft } from "lucide-react"
 import { notFound } from "next/navigation"
 

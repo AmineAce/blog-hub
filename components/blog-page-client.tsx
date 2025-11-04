@@ -7,7 +7,7 @@ import { Clock } from "lucide-react"
 import { BlogPagination } from "@/components/blog-pagination"
 import { SearchAndFilter } from "@/components/search-and-filter"
 import { useState, useMemo } from "react"
-import { Post } from "@/lib/posts-server"
+import { Post } from "@/lib/posts-static"
 
 interface BlogPageClientProps {
   posts: Post[]

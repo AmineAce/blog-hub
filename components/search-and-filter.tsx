@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Search, Filter } from "lucide-react"
 import { Post } from "@/lib/posts-server"
-import { getFilteredPosts } from "@/app/actions"
+import { getFilteredPosts } from "@/lib/search"
 
 interface SearchAndFilterProps {
   posts: Post[]
