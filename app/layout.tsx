@@ -72,19 +72,26 @@ export default function RootLayout({
   
   return (
     <html lang="en" suppressHydrationWarning>
-      <Script src="https://analytics.ahrefs.com/analytics.js" data-key="8pU3/2nwOzKD0ZK+Hz5LDg" async />
-      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-0E1WF48W8E" />
-      <Script
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-0E1WF48W8E');
-          `,
-        }}
-      />
+      {/* Analytics Scripts with Environment Variables */}
+      {process.env.NEXT_PUBLIC_AHREFS_KEY && (
+        <Script src="https://analytics.ahrefs.com/analytics.js" data-key={process.env.NEXT_PUBLIC_AHREFS_KEY} async />
+      )}
+      {process.env.NEXT_PUBLIC_GA_ID && (
+        <Script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`} />
+      )}
+      {process.env.NEXT_PUBLIC_GA_ID && (
+        <Script
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+            `,
+          }}
+        />
+      )}
       
       {/* Structured Data Scripts */}
       <Script
