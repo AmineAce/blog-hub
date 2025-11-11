@@ -1,6 +1,22 @@
 {
   "documents": [
     {
+      "id": "ryzen-5-9600x-vs-core-i5-14600k-the-ultimate-mid-range-battle",
+      "slug": "ryzen-5-9600x-vs-core-i5-14600k-the-ultimate-mid-range-battle",
+      "title": "Ryzen 5 9600X vs. Core i5-14600K: The CPU Cage Match Where Efficiency Punches Above Its Weight",
+      "excerpt": "Stuck choosing between AMD's sleek power-sipper and Intel's thread-hungry beast? We pit the Ryzen 5 9600X against the Core i5-14600K in a hilarious head-to-head—spoiler: your wallet wins either way.",
+      "publishedAt": "2025-11-11T00:00",
+      "tags": [
+        "CPU Comparison",
+        "AMD Ryzen",
+        "Intel Core",
+        "Gaming PC",
+        "Budget Build",
+        "Tech Showdown"
+      ],
+      "image": "https://images.ctfassets.net/07omnkoegg5r/LlEWBaKo3F8SB7WXesIUK/f7a779a65b902a8b15faea61653b7048/c503e1c5-9f26-41f3-975f-7cc94c534d71.webp"
+    },
+    {
       "id": "capture-crisp-audio-anywhere-why-the-rode-wireless-me-is-a-game-changer-for-content-creator",
       "slug": "capture-crisp-audio-anywhere-why-the-rode-wireless-me-is-a-game-changer-for-content-creator",
       "title": "Capture Crisp Audio Anywhere: Why the RODE Wireless ME Is a Game Changer for Content Creator",
@@ -92,6 +108,6 @@
       "image": "https://images.ctfassets.net/07omnkoegg5r/4krrsxhjeftDcvs1O4XTt8/981b14340b0750ca5aec6df53e90afa9/autumn-is-coming-cozy-up-your-home-with-etsy-digital-prints.webp"
     }
   ],
-  "updatedAt": "2025-11-11T12:58:12.273Z",
+  "updatedAt": "2025-11-11T20:21:55.279Z",
   "version": "1.0.0"
 }

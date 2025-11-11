@@ -13,6 +13,9 @@ interface ContentfulPost {
   featuredImage?: string | null;
 }
 
+// Add ISR configuration
+export const revalidate = 300 // Revalidate every 5 minutes
+
 export default async function BlogPage() {
   const posts: ContentfulPost[] = await getAllPosts()
   const blogSchema = generateBlogSchema()
