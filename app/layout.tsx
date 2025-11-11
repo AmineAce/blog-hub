@@ -2,12 +2,14 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter, JetBrains_Mono } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
-import { Header } from "@/components/header"
+import HeaderServer from "@/components/HeaderServer"
 import { Footer } from "@/components/footer"
+import { SearchProvider } from "@/components/search-context"
 import { Suspense } from "react"
 import Script from "next/script"
 import { generateOrganizationSchema, generateWebsiteSchema } from "@/lib/structured-data"
 import "./globals.css"
+import ErrorBoundary from "@/components/ErrorBoundary"
 
 // Configure fonts
 const inter = Inter({ 
@@ -105,15 +107,59 @@ export default function RootLayout({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
       
+      {/* Global Error Handler */}
+      <Script
+        id="global-error-handler"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.addEventListener('error', (e) => {
+              console.error('Client Error:', e.error);
+              fetch('/api/log-error', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  message: e.error?.message || 'Unknown error',
+                  stack: e.error?.stack,
+                  url: location.href,
+                  userAgent: navigator.userAgent,
+                  timestamp: new Date().toISOString(),
+                }),
+              }).catch(err => console.error('Failed to log error:', err));
+            });
+            
+            window.addEventListener('unhandledrejection', (e) => {
+              console.error('Unhandled Promise Rejection:', e.reason);
+              fetch('/api/log-error', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  message: e.reason?.message || 'Unhandled promise rejection',
+                  stack: e.reason?.stack,
+                  url: location.href,
+                  userAgent: navigator.userAgent,
+                  timestamp: new Date().toISOString(),
+                  type: 'unhandledrejection',
+                }),
+              }).catch(err => console.error('Failed to log error:', err));
+            });
+          `,
+        }}
+      />
+      
       <body className={`font-sans ${inter.variable} ${jetbrainsMono.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Suspense fallback={<div>Loading...</div>}>
-            <div className="flex min-h-screen flex-col">
-              <Header />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </div>
-          </Suspense>
+          <ErrorBoundary>
+            <SearchProvider>
+              <Suspense fallback={<div>Loading...</div>}>
+                <div className="flex min-h-screen flex-col">
+                  <HeaderServer />
+                  <main className="flex-1">{children}</main>
+                  <Footer />
+                </div>
+              </Suspense>
+            </SearchProvider>
+          </ErrorBoundary>
         </ThemeProvider>
       </body>
     </html>

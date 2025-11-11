@@ -3,17 +3,18 @@ import Link from "next/link"
 import { Clock, ArrowLeft } from "lucide-react"
 import Image from "next/image"
 import { ShareButtons } from "@/components/share-buttons"
-import { client } from "@/lib/contentful"
+import { getPostBySlug, getPostSlugs } from "@/lib/contentful"
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { Card, CardContent } from "@/components/ui/card"
 import { generateArticleSchema, generateBreadcrumbSchema } from "@/lib/structured-data"
 import Script from "next/script"
+import { draftMode } from "next/headers"
 
 export async function generateStaticParams() {
   try {
-    const entries = await client.getEntries({ content_type: 'post' });
-    return entries.items.map((entry: any) => ({
-      slug: entry.fields.slug,
+    const slugs = await getPostSlugs(false);
+    return slugs.map((slug: string) => ({
+      slug,
     }));
   } catch (error) {
     // Fallback for build time when Contentful credentials are not configured
@@ -25,12 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
 
   try {
-    const entries = await client.getEntries({
-      content_type: 'post',
-      'fields.slug': slug,
-    });
-
-    const post = entries.items[0] as any;
+    const post = await getPostBySlug(slug, false);
     if (!post) {
       return {
         title: 'Post Not Found',
@@ -38,14 +34,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     }
 
     return {
-      title: post.fields.title,
-      description: post.fields.excerpt,
+      title: post.title,
+      description: post.excerpt,
       openGraph: {
-        title: post.fields.title,
-        description: post.fields.excerpt,
+        title: post.title,
+        description: post.excerpt,
         type: 'article',
-        publishedTime: post.fields.publishedAt,
-        images: post.fields.featuredImage ? [`https:${post.fields.featuredImage.fields.file.url}`] : [],
+        publishedTime: post.publishedAt,
+        images: post.featuredImage ? [post.featuredImage] : [],
       },
     }
   } catch (error) {
@@ -58,15 +54,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
 
-  const entries = await client.getEntries({
-    content_type: 'post',
-    'fields.slug': slug,
-  });
+  // Check if we're in draft mode
+  const { isEnabled } = await draftMode();
+  const preview = isEnabled;
 
-  const post = entries.items[0] as any;
+  const post = await getPostBySlug(slug, preview);
   if (!post) notFound();
 
-  const { title, excerpt, body, featuredImage, publishedAt } = post.fields;
+  const { title, excerpt, content, publishedAt, featuredImage } = post;
 
   // Generate structured data
   const articleSchema = generateArticleSchema({
@@ -75,7 +70,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     author: "CompareClash",
     datePublished: publishedAt,
     dateModified: publishedAt,
-    image: featuredImage ? `https:${featuredImage.fields.file.url}` : undefined,
+    image: featuredImage || undefined,
     url: `https://compareclash.com/posts/${slug}`
   })
 
@@ -125,8 +120,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         {featuredImage && (
           <div className="relative w-full aspect-video overflow-hidden rounded-lg mb-8">
             <Image
-              src={`https:${featuredImage.fields.file.url}`}
-              alt={featuredImage.fields.title || title}
+              src={featuredImage}
+              alt={title}
               width={1200}
               height={600}
               className="rounded-lg shadow-lg object-cover"
@@ -138,7 +133,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         )}
 
         <div className="prose prose-neutral dark:prose-invert max-w-none">
-          {documentToReactComponents(body)}
+          {documentToReactComponents(content)}
         </div>
 
         <footer className="mt-12 pt-8 border-t border-border">

@@ -3,8 +3,18 @@ import { BlogCard } from "@/components/blog-card"
 import { generateBlogSchema } from "@/lib/structured-data"
 import Script from "next/script"
 
+interface ContentfulPost {
+  title: string;
+  slug: string;
+  excerpt: string;
+  publishedAt: string;
+  tags?: string[];
+  content: any;
+  featuredImage?: string | null;
+}
+
 export default async function BlogPage() {
-  const posts = await getAllPosts()
+  const posts: ContentfulPost[] = await getAllPosts()
   const blogSchema = generateBlogSchema()
 
   return (

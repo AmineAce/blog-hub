@@ -1,19 +1,28 @@
-import { Post, getAllPosts } from './posts-static'
+import { getAllPosts } from './contentful'
+
+interface ContentfulPost {
+  title: string;
+  slug: string;
+  excerpt: string;
+  publishedAt: string;
+  tags?: string[];
+}
 
 interface ScoredPost {
-  post: Post
+  post: ContentfulPost
   score: number
 }
 
-export function getRelatedPosts(currentPost: Post, limit = 5): Post[] {
-  const allPosts = getAllPosts()
+export async function getRelatedPosts(currentPost: ContentfulPost, limit = 5): Promise<ContentfulPost[]> {
+  const allPosts = await getAllPosts()
 
   // Remove the current post from consideration
-  const otherPosts = allPosts.filter((post: Post) => post.slug !== currentPost.slug)
+  const otherPosts = allPosts.filter((post: ContentfulPost) => post.slug !== currentPost.slug)
 
   // Calculate relevance score based on shared tags
-  const postsWithScores: ScoredPost[] = otherPosts.map((post: Post) => {
-    const sharedTags = post.tags.filter((tag: string) => currentPost.tags.includes(tag))
+  const postsWithScores: ScoredPost[] = otherPosts.map((post: ContentfulPost) => {
+    const sharedTags = post.tags && currentPost.tags ?
+      post.tags.filter((tag: string) => currentPost.tags!.includes(tag)) : []
     const score = sharedTags.length
 
     // Boost score for posts with more shared tags
@@ -25,7 +34,7 @@ export function getRelatedPosts(currentPost: Post, limit = 5): Post[] {
     if (a.score !== b.score) {
       return b.score - a.score
     }
-    return b.post.uploadTimestamp - a.post.uploadTimestamp
+    return new Date(b.post.publishedAt).getTime() - new Date(a.post.publishedAt).getTime()
   })
 
   // Return top posts (limit to specified or available)

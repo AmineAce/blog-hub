@@ -1,5 +1,7 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
+import { getOptimizedImage } from "@/lib/image"
 
 interface BlogCardProps {
   post: {
@@ -8,13 +10,38 @@ interface BlogCardProps {
     excerpt: string;
     publishedAt: string;
     tags?: string[];
+    featuredImage?: string | null;
   }
 }
 
-export function BlogCard({ post }: BlogCardProps) {
+export async function BlogCard({ post }: BlogCardProps) {
+  // Optimize the featured image with WebP and blur placeholder
+  const optimizedImage = post.featuredImage 
+    ? await getOptimizedImage(post.featuredImage, {
+        width: 800,
+        quality: 75,
+        format: 'webp',
+        blurPlaceholder: true
+      })
+    : null
+
   return (
     <Link href={`/posts/${post.slug}`} className="group">
       <Card className="h-full overflow-hidden border-border/50 hover:border-border transition-colors">
+        {optimizedImage && (
+          <div className="relative aspect-video overflow-hidden">
+            <Image
+              src={optimizedImage.src}
+              alt={post.title}
+              width={800}
+              height={450}
+              className="object-cover transition-transform group-hover:scale-105"
+              placeholder="blur"
+              blurDataURL={optimizedImage.blurDataURL}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
+        )}
         <CardContent className="p-6">
           <h2 className="text-xl font-semibold tracking-tight text-balance mb-3 group-hover:text-primary transition-colors">
             {post.title}

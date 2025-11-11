@@ -1,0 +1,26 @@
+const fs = require('fs');
+
+// Function to convert Title-Case to kebab-case
+function toKebabCase(str) {
+  return str
+    .replace(/([a-z])([A-Z])/g, '$1-$2') // Handle camelCase boundaries
+    .replace(/[^a-zA-Z0-9]+/g, '-') // Replace non-alphanumeric with hyphens
+    .replace(/^-+|-+$/g, '') // Remove leading/trailing hyphens
+    .toLowerCase(); // Convert to lowercase
+}
+
+// Read the migration data
+const migrationData = JSON.parse(fs.readFileSync('migration-data.json', 'utf8'));
+
+// Convert slugs to kebab-case
+migrationData.forEach(post => {
+  const originalSlug = post.slug;
+  post.slug = toKebabCase(originalSlug);
+  console.log(`Converted: ${originalSlug} -> ${post.slug}`);
+});
+
+// Write back to file
+fs.writeFileSync('migration-data.json', JSON.stringify(migrationData, null, 2));
+
+console.log('\n✅ All slugs converted to kebab-case format');
+console.log('Updated migration-data.json with kebab-case slugs');

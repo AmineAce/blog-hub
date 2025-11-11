@@ -1,0 +1,50 @@
+[
+  {
+    "name": "minScore",
+    "expected": 0.95,
+    "actual": 0.73,
+    "values": [
+      0.72,
+      0.7,
+      0.73
+    ],
+    "operator": ">=",
+    "passed": false,
+    "auditProperty": "performance",
+    "auditId": "categories",
+    "level": "warn",
+    "url": "https://compareclash.netlify.app/"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.95,
+    "actual": 0.84,
+    "values": [
+      0.73,
+      0.74,
+      0.84
+    ],
+    "operator": ">=",
+    "passed": false,
+    "auditProperty": "performance",
+    "auditId": "categories",
+    "level": "warn",
+    "url": "https://compareclash.netlify.app/blog/"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.98,
+    "actual": 0.94,
+    "values": [
+      0.94,
+      0.94,
+      0.94
+    ],
+    "operator": ">=",
+    "passed": false,
+    "auditProperty": "accessibility",
+    "auditId": "categories",
+    "level": "warn",
+    "url": "https://compareclash.netlify.app/blog/"
+  }
+]

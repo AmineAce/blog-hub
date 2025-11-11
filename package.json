@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build",
-    "dev": "next dev",
+    "generate-search": "tsx scripts/generate-search-index.ts",
+    "build": "npm run generate-search && next build",
+    "dev": "npm run generate-search && next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "analyze": "ANALYZE=true npm run build",
+    "lhci": "lhci autorun"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.1.6",
@@ -38,13 +41,15 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "contentful": "^11.8.11",
+    "contentful-management": "^11.62.1",
+    "dotenv": "^17.2.3",
     "embla-carousel-react": "^8.6.0",
     "gray-matter": "^4.0.3",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.454.0",
-    "minisearch": "^7.2.0",
     "next": "^15.5.4",
     "next-themes": "latest",
+    "plaiceholder": "^3.0.0",
     "react": "^19",
     "react-dom": "^19",
     "react-hook-form": "^7.66.0",
@@ -52,17 +57,23 @@
     "react-resizable-panels": "^3.0.6",
     "recharts": "^3.3.0",
     "remark-gfm": "latest",
+    "sharp": "^0.34.5",
     "sonner": "^2.0.7",
     "tailwind-merge": "^2.5.5",
     "vaul": "^1.1.2"
   },
   "devDependencies": {
+    "@lhci/cli": "^0.15.1",
+    "@next/bundle-analyzer": "^16.0.1",
     "@tailwindcss/postcss": "^4.1.16",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "eslint": "^9.39.1",
+    "eslint-config-next": "16.0.1",
     "postcss": "^8.5",
     "tailwindcss": "^4.1.9",
+    "tsx": "^4.20.6",
     "typescript": "^5"
   }
 }

@@ -1,3 +1,7 @@
+// Bundle analyzer temporarily disabled for build testing
+// import pkg from '@next/bundle-analyzer';
+// const { withBundleAnalyzer } = pkg;
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -37,3 +41,6 @@ const nextConfig = {
 }
 
 export default nextConfig
+// export default withBundleAnalyzer({
+//   enabled: process.env.ANALYZE === 'true',
+// })(nextConfig);

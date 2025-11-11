@@ -4,12 +4,19 @@ import { useState, useMemo, useEffect, useTransition } from "react"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Search, Filter } from "lucide-react"
-import { Post } from "@/lib/posts-server"
-import { getFilteredPosts } from "@/lib/search"
+import { getFilteredStaticPosts, type StaticSearchResult } from "@/lib/search-static"
+
+interface ContentfulPost {
+  title: string;
+  slug: string;
+  excerpt: string;
+  publishedAt: string;
+  tags?: string[];
+}
 
 interface SearchAndFilterProps {
-  posts: Post[]
-  onFilteredPosts: (filtered: Post[]) => void
+  posts: ContentfulPost[]
+  onFilteredPosts: (filtered: ContentfulPost[]) => void
   searchQuery: string
   setSearchQuery: (query: string) => void
   selectedCategory: string
@@ -25,29 +32,38 @@ export function SearchAndFilter({
   setSelectedCategory
 }: SearchAndFilterProps) {
   const [isPending, startTransition] = useTransition()
-  const [filteredResults, setFilteredResults] = useState<Post[]>(posts.slice(1)) // Initial recent posts
+  const [filteredResults, setFilteredResults] = useState<StaticSearchResult[]>([])
 
-  // Get all unique categories
+  // Note: Categories not implemented in Contentful yet
   const allCategories = useMemo(() => {
-    const categories = new Set<string>()
-    posts.forEach(post => {
-      post.categories.forEach(category => categories.add(category))
-    })
-    return Array.from(categories).sort()
-  }, [posts])
+    return [] // Empty for now
+  }, [])
 
   // Fetch filtered posts when filters change
   useEffect(() => {
     startTransition(async () => {
       try {
-        const filtered = await getFilteredPosts(searchQuery, selectedCategory)
+        const filtered = await getFilteredStaticPosts(searchQuery, selectedCategory)
         setFilteredResults(filtered)
-        onFilteredPosts(filtered)
+        
+        // Convert back to ContentfulPost format for compatibility
+        // Note: We're using current date as fallback since StaticSearchResult doesn't have raw publishedAt
+        const convertedPosts: ContentfulPost[] = filtered.map(post => ({
+          title: post.title,
+          slug: post.slug,
+          excerpt: post.excerpt,
+          publishedAt: new Date().toISOString(), // Use current date as fallback
+          tags: post.tags
+        }))
+        
+        onFilteredPosts(convertedPosts)
       } catch (error) {
         console.error('Error filtering posts:', error)
+        // Fallback to original posts on error
+        onFilteredPosts(posts)
       }
     })
-  }, [searchQuery, selectedCategory, onFilteredPosts])
+  }, [searchQuery, selectedCategory, onFilteredPosts, posts])
 
   return (
     <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
@@ -79,6 +95,11 @@ export function SearchAndFilter({
             ))}
           </SelectContent>
         </Select>
+      </div>
+      
+      {/* Performance indicator */}
+      <div className="text-xs text-muted-foreground hidden sm:block">
+        ⚡ Static Search
       </div>
     </div>
   )

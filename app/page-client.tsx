@@ -6,10 +6,19 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Clock } from "lucide-react"
 import { useState, useMemo } from "react"
-import { Post } from "@/lib/posts-static"
+
+interface ContentfulPost {
+  title: string;
+  slug: string;
+  excerpt: string;
+  publishedAt: string;
+  tags?: string[];
+  content: any;
+  featuredImage?: string | null;
+}
 
 interface HomePageClientProps {
-  posts: Post[]
+  posts: ContentfulPost[]
 }
 
 export default function HomePageClient({ posts }: HomePageClientProps) {
@@ -46,7 +55,7 @@ export default function HomePageClient({ posts }: HomePageClientProps) {
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="relative aspect-video md:aspect-auto">
                   <Image
-                    src={featuredPost.image || `/placeholder.svg?height=400&width=600&query=${encodeURIComponent(featuredPost.title)}`}
+                    src={featuredPost.featuredImage || `/placeholder.svg?height=400&width=600&query=${encodeURIComponent(featuredPost.title)}`}
                     alt={featuredPost.title}
                     fill
                     className="object-cover"
@@ -56,12 +65,13 @@ export default function HomePageClient({ posts }: HomePageClientProps) {
                 </div>
                 <CardContent className="flex flex-col justify-center p-6 md:p-8">
                   <div className="mb-3 flex items-center gap-3 text-sm text-muted-foreground">
-                    <time dateTime={featuredPost.date}>{featuredPost.formattedDate}</time>
-                    <span>•</span>
-                    <div className="flex items-center gap-1">
-                      <Clock className="h-3.5 w-3.5" />
-                      <span>{featuredPost.readTime} min read</span>
-                    </div>
+                    <time dateTime={featuredPost.publishedAt}>
+                      {new Date(featuredPost.publishedAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </time>
                   </div>
                   <h2 className="text-2xl font-semibold tracking-tight text-balance mb-3">{featuredPost.title}</h2>
                   <p className="text-muted-foreground text-pretty mb-6 leading-relaxed">{featuredPost.excerpt}</p>
@@ -99,12 +109,12 @@ export default function HomePageClient({ posts }: HomePageClientProps) {
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {displayRecentPosts.map((post) => (
+            {displayRecentPosts.map((post: ContentfulPost) => (
               <Link key={post.slug} href={`/posts/${post.slug}`} className="block">
                 <Card className="h-full overflow-hidden border-border/50 hover:border-border hover:shadow-md transition-all cursor-pointer">
                   <div className="relative aspect-video">
                     <Image
-                      src={post.image || `/placeholder.svg?height=300&width=400&query=${encodeURIComponent(post.title)}`}
+                      src={post.featuredImage || `/placeholder.svg?height=300&width=400&query=${encodeURIComponent(post.title)}`}
                       alt={post.title}
                       fill
                       className="object-cover"
@@ -113,12 +123,13 @@ export default function HomePageClient({ posts }: HomePageClientProps) {
                   </div>
                   <CardContent className="p-6">
                   <div className="mb-2 flex items-center gap-2 text-xs text-muted-foreground">
-                    <time dateTime={post.date}>{post.formattedDate}</time>
-                    <span>•</span>
-                    <div className="flex items-center gap-1">
-                      <Clock className="h-3 w-3" />
-                      <span>{post.readTime} min</span>
-                    </div>
+                    <time dateTime={post.publishedAt}>
+                      {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                      })}
+                    </time>
                   </div>
                     <h3 className="text-lg font-semibold tracking-tight text-balance mb-2">{post.title}</h3>
                     <p className="text-sm text-muted-foreground text-pretty leading-relaxed mb-4">{post.excerpt}</p>

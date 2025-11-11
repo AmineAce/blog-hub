@@ -1,0 +1,27 @@
+const fs = require('fs');
+const path = require('path');
+
+// Read the migration data
+const migrationDataPath = path.join(process.cwd(), 'migration-data.json');
+const posts = JSON.parse(fs.readFileSync(migrationDataPath, 'utf8'));
+
+console.log('📝 Adding featuredImage references to migration data...\n');
+
+// Add image references to each post
+const updatedPosts = posts.map(post => {
+  const imageUrl = `/images/posts/${post.slug}.webp`;
+  const updatedPost = {
+    ...post,
+    featuredImage: imageUrl
+  };
+  
+  console.log(`✅ Added image: ${post.slug} → ${imageUrl}`);
+  return updatedPost;
+});
+
+// Write updated data back to file
+fs.writeFileSync(migrationDataPath, JSON.stringify(updatedPosts, null, 2));
+
+console.log('\n🎉 Migration data updated!');
+console.log('📄 All posts now include featuredImage URLs');
+console.log('🚀 Ready to import to Contentful');
