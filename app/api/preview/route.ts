@@ -22,5 +22,5 @@ export async function GET(request: Request) {
 
   // Enable draft mode and redirect
   (await draftMode()).enable();
-  redirect(`/blog/${slug}`);
+  redirect(`/posts/${slug}`);
 }
