@@ -7,6 +7,11 @@ export async function GET(request: Request) {
   const secret = searchParams.get('secret');
   const slug = searchParams.get('slug');
 
+  // DEBUG: Log what we're getting
+  console.log('Secret received:', secret);
+  console.log('Env secret:', process.env.CONTENTFUL_PREVIEW_SECRET);
+  console.log('Slug:', slug);
+
   if (secret !== process.env.CONTENTFUL_PREVIEW_SECRET) {
     return new NextResponse('Invalid token', { status: 401 });
   }
