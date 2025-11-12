@@ -29,7 +29,7 @@ export default function SearchDialog() {
     }
   }, [searchOpen]);
 
-  // Close on escape key
+  // Close on escape key and click outside
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -37,13 +37,23 @@ export default function SearchDialog() {
       }
     };
 
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // Close if clicked on the backdrop (not on the search card)
+      if (target.closest('.search-dialog-card') === null) {
+        setSearchOpen(false);
+      }
+    };
+
     if (searchOpen) {
       document.addEventListener('keydown', handleEscape);
+      document.addEventListener('mousedown', handleClickOutside);
       document.body.style.overflow = 'hidden';
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener('mousedown', handleClickOutside);
       document.body.style.overflow = 'unset';
     };
   }, [searchOpen, setSearchOpen]);
@@ -62,15 +72,7 @@ export default function SearchDialog() {
 
   return (
     <div className="fixed inset-0 z-[100] bg-black/50 flex items-start justify-center pt-20 overflow-y-auto">
-      <div className="relative w-full max-w-2xl mx-4 bg-background border rounded-lg shadow-2xl my-8">
-        {/* Close button - positioned absolutely to escape the card padding */}
-        <button
-          onClick={() => setSearchOpen(false)}
-          className="absolute -top-2 -right-2 z-10 bg-background border rounded-full p-2 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-        >
-          ✕
-        </button>
-
+      <div className="search-dialog-card relative w-full max-w-2xl mx-4 bg-background border rounded-lg shadow-2xl my-8">
         <div className="p-6 border-b">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -166,12 +168,6 @@ export default function SearchDialog() {
               </p>
             </div>
           )}
-        </div>
-
-        <div className="p-6 border-t bg-muted/20">
-          <div className="text-center text-xs text-muted-foreground">
-            ⚡ Static Search • {results.length} results
-          </div>
         </div>
       </div>
     </div>

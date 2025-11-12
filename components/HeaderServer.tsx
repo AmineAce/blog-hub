@@ -21,7 +21,7 @@ export default function HeaderServer() {
             href="/blog"
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
-            Posts
+            All Posts
           </Link>
           <SearchButton />
           <ThemeToggle />
