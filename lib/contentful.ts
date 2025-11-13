@@ -50,7 +50,7 @@ export async function getAllPosts(preview = false) {
     include: 2, // Include linked assets (featured images)
   });
 
-  return entries.items.map((entry: any) => ({
+  const posts = entries.items.map((entry: any) => ({
     title: entry.fields.title,
     slug: entry.fields.slug,
     excerpt: entry.fields.excerpt,
@@ -61,6 +61,9 @@ export async function getAllPosts(preview = false) {
       ? `https:${entry.fields.featuredImage.fields.file.url}`
       : null,
   }));
+
+  // Sort posts by publishedAt descending to ensure latest first
+  return posts.sort((a: any, b: any) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
 }
 
 export async function getPostBySlug(slug: string, preview = false) {

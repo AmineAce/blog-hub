@@ -5,7 +5,9 @@ import Image from "next/image"
 import { ShareButtons } from "@/components/share-buttons"
 import { getPostBySlug, getPostSlugs } from "@/lib/contentful"
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
+import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types'
 import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { generateArticleSchema, generateBreadcrumbSchema } from "@/lib/structured-data"
 import Script from "next/script"
 import { draftMode } from "next/headers"
@@ -83,6 +85,117 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     { name: title, url: `https://compareclash.com/posts/${slug}` }
   ])
 
+  const richTextOptions = {
+    renderNode: {
+      [BLOCKS.PARAGRAPH]: (node: any, children: any) => {
+        const isInsideListItem = node.parent?.nodeType === BLOCKS.LIST_ITEM;
+        if (isInsideListItem) {
+          return children;
+        }
+        return (
+          <p className="mb-6 leading-relaxed">
+            {children}
+          </p>
+        );
+      },
+      [BLOCKS.HEADING_1]: (node: any, children: any) => (
+        <h1 className="text-4xl font-bold mb-6 mt-8 text-gray-900 dark:text-gray-100">{children}</h1>
+      ),
+      [BLOCKS.HEADING_2]: (node: any, children: any) => (
+        <h2 className="text-3xl font-semibold mb-4 mt-6 text-gray-900 dark:text-gray-100">{children}</h2>
+      ),
+      [BLOCKS.HEADING_3]: (node: any, children: any) => (
+        <h3 className="text-2xl font-semibold mb-3 mt-5 text-gray-900 dark:text-gray-100">{children}</h3>
+      ),
+      [BLOCKS.HEADING_4]: (node: any, children: any) => (
+        <h4 className="text-xl font-semibold mb-3 mt-4 text-gray-900 dark:text-gray-100">{children}</h4>
+      ),
+      [BLOCKS.HEADING_5]: (node: any, children: any) => (
+        <h5 className="text-lg font-semibold mb-2 mt-4 text-gray-900 dark:text-gray-100">{children}</h5>
+      ),
+      [BLOCKS.HEADING_6]: (node: any, children: any) => (
+        <h6 className="text-base font-semibold mb-2 mt-4 text-gray-900 dark:text-gray-100">{children}</h6>
+      ),
+      [BLOCKS.UL_LIST]: (node: any, children: any) => (
+        <ul className="list-disc mb-6 space-y-2 pl-6">{children}</ul>
+      ),
+      [BLOCKS.OL_LIST]: (node: any, children: any) => (
+        <ol className="list-decimal mb-6 space-y-2 pl-6">{children}</ol>
+      ),
+      [BLOCKS.LIST_ITEM]: (node: any, children: any) => (
+        <li className="leading-relaxed mb-2">{children}</li>
+      ),
+      [BLOCKS.TABLE]: (node: any, children: any) => (
+        <div className="overflow-x-auto mb-6">
+          <table className="w-full border-collapse border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+            <tbody>{children}</tbody>
+          </table>
+        </div>
+      ),
+      [BLOCKS.TABLE_ROW]: (node: any, children: any) => (
+        <tr className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">{children}</tr>
+      ),
+      [BLOCKS.TABLE_CELL]: (node: any, children: any) => (
+        <td className="border border-gray-300 dark:border-gray-600 p-3 text-left align-top">{children}</td>
+      ),
+      [BLOCKS.TABLE_HEADER_CELL]: (node: any, children: any) => (
+        <th className="border border-gray-300 dark:border-gray-600 p-3 text-left align-top bg-gray-100 dark:bg-gray-700 font-semibold">{children}</th>
+      ),
+      [BLOCKS.EMBEDDED_ASSET]: (node: any) => {
+        const { url, title, description } = node.data.target.fields;
+        const imageUrl = `https:${url}`;
+        return (
+          <div className="flex justify-center mb-8">
+            <div className="relative max-w-full sm:max-w-2xl">
+              <Image
+                src={imageUrl}
+                alt={title || description || 'Embedded image'}
+                width={800}
+                height={600}
+                className="rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"
+              />
+            </div>
+          </div>
+        );
+      },
+      [INLINES.HYPERLINK]: (node: any, children: any) => {
+        const { uri } = node.data;
+        const isInternal = uri.startsWith('/');
+        const isExternal = !isInternal;
+
+        const buttonClass = "inline-block bg-black dark:bg-white text-white dark:text-black text-sm px-3 py-1 rounded-md hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors duration-200 no-underline";
+
+        if (isInternal) {
+          return (
+            <Link href={uri} className={buttonClass}>
+              {children}
+            </Link>
+          );
+        } else {
+          return (
+            <a
+              href={uri}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${buttonClass} inline-flex items-center gap-1`}
+            >
+              {children}
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          );
+        }
+      },
+    },
+    renderMark: {
+      [MARKS.BOLD]: (text: any) => <strong className="font-semibold">{text}</strong>,
+      [MARKS.ITALIC]: (text: any) => <em className="italic">{text}</em>,
+      [MARKS.UNDERLINE]: (text: any) => <u className="underline">{text}</u>,
+    },
+  };
+
   return (
     <>
       {/* Article Schema */}
@@ -136,7 +249,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         )}
 
         <div className="prose prose-neutral dark:prose-invert max-w-none">
-          {documentToReactComponents(content)}
+          {documentToReactComponents(content, richTextOptions)}
         </div>
 
         <footer className="mt-12 pt-8 border-t border-border">

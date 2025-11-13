@@ -161,15 +161,7 @@ export function getAllPosts(): Post[] {
       return a.title.localeCompare(b.title);
     });
 
-  // Log for debugging
-  console.log(
-    'Sorted posts:',
-    posts.map((p) => ({
-      title: p.title,
-      uploadTimestamp: p.uploadTimestamp,
-      timestampReadable: p.uploadTimestamp ? new Date(p.uploadTimestamp).toISOString() : 'Invalid timestamp',
-    }))
-  );
+
 
   return posts;
 }

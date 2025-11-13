@@ -1,6 +1,18 @@
 {
   "documents": [
     {
+      "id": "bose-quietcomfort-ultra-vs-sony-wh-1000xm6-2025",
+      "slug": "bose-quietcomfort-ultra-vs-sony-wh-1000xm6-2025",
+      "title": "Bose QuietComfort Ultra vs Sony WH-1000XM6: 2025’s Closest ANC Battle",
+      "excerpt": "Bose ($359.95) or Sony ($408)? After hundreds of hours of testing, we crown the 2025 ANC champion in the tightest showdown yet—comfort vs performance, USB-C vs LDAC, 24 vs 40 hours. Find out which flagship deserves your ears.",
+      "publishedAt": "2025-11-12T00:00",
+      "tags": [
+        "Noise-canceling",
+        "Headphones"
+      ],
+      "image": "https://images.ctfassets.net/07omnkoegg5r/6rTLBxYCZJilyHamxQB5Mu/a45cf961dd973e5e8803884e6e7cdbc8/4f401dcf-9eec-4c99-af8b-c5f45eee9078.webp"
+    },
+    {
       "id": "ryzen-5-9600x-vs-core-i5-14600k-the-ultimate-mid-range-battle",
       "slug": "ryzen-5-9600x-vs-core-i5-14600k-the-ultimate-mid-range-battle",
       "title": "Ryzen 5 9600X vs. Core i5-14600K: The CPU Cage Match Where Efficiency Punches Above Its Weight",
@@ -67,21 +79,8 @@
         "gadgets"
       ],
       "image": "https://images.ctfassets.net/07omnkoegg5r/78lmRqRqGIRClblV8MtLpp/5fe73752302a932573f6b1da31ccf407/Transform-Your-Home-with-Smart-Sound-Why-the-Echo-Dot-5th-Gen-Is-a-Must-Have.webp"
-    },
-    {
-      "id": "the-allure-of-the-casino-cat-why-every-man-cave-needs-this-sophisticated-feline-gambler-poster",
-      "slug": "the-allure-of-the-casino-cat-why-every-man-cave-needs-this-sophisticated-feline-gambler-poster",
-      "title": "The Allure of the Casino Cat: Why Every Man Cave Needs This Sophisticated Feline Gambler Poster",
-      "excerpt": "Elevate your man cave with a sleek casino-themed cat art print from Etsy. This digital poster features a tuxedo-clad feline gambler, perfect for instant room decor with high-res prints in multiple sizes.",
-      "publishedAt": "2024-10-02T23:00:00.000Z",
-      "tags": [
-        "home decor",
-        "art",
-        "cats"
-      ],
-      "image": "https://images.ctfassets.net/07omnkoegg5r/4CFvP8Jxj23eAZVfTDyTeQ/8c2987346a8791218e2189ca846c5cac/the-allure-of-the-casino-cat-why-every-man-cave-needs-this-sophisticated-feline-gambler-poster.webp"
     }
   ],
-  "updatedAt": "2025-11-12T12:18:06.149Z",
+  "updatedAt": "2025-11-13T20:00:46.673Z",
   "version": "1.0.0"
 }
