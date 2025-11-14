@@ -11,14 +11,32 @@ const nextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     qualities: [75, 80, 85, 90, 95],
-    // Enable image domains for external images if needed
+    // Enable image domains for Contentful and other external images
     remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.ctfassets.net',
+      },
+      {
+        protocol: 'https',
+        hostname: 'assets.ctfassets.net',
+      },
       {
         protocol: 'https',
         hostname: '**',
       },
     ],
     minimumCacheTTL: 86400, // 24 hours cache TTL
+  },
+  async redirects() {
+    return [
+      {
+        source: '/old-blog',
+        destination: '/blog',
+        permanent: true,
+      },
+      // Add more redirects as needed
+    ]
   },
   // Performance optimizations
   experimental: {

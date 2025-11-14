@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { generateArticleSchema, generateBreadcrumbSchema } from "@/lib/structured-data"
 import Script from "next/script"
 import { draftMode } from "next/headers"
+import { getRelatedPosts } from "@/lib/related-posts"
 
 // Add ISR configuration
 export const revalidate = 300 // Revalidate every 5 minutes
@@ -38,15 +39,48 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       }
     }
 
+    // Enforce SEO best practices
+    const title = post.title.length > 60 ? post.title.substring(0, 57) + '...' : post.title;
+    const description = post.excerpt.length > 160 ? post.excerpt.substring(0, 157) + '...' : post.excerpt;
+    const canonicalUrl = `https://compareclash.netlify.app/posts/${slug}`;
+
     return {
-      title: post.title,
-      description: post.excerpt,
+      title,
+      description,
+      alternates: {
+        canonical: canonicalUrl,
+      },
       openGraph: {
-        title: post.title,
-        description: post.excerpt,
+        title,
+        description,
+        url: canonicalUrl,
+        siteName: 'CompareClash',
         type: 'article',
         publishedTime: post.publishedAt,
+        images: post.featuredImage ? [{
+          url: post.featuredImage,
+          width: 1200,
+          height: 630,
+          alt: title,
+        }] : [],
+        locale: 'en_US',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title,
+        description,
         images: post.featuredImage ? [post.featuredImage] : [],
+      },
+      robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          'max-video-preview': -1,
+          'max-image-preview': 'large',
+          'max-snippet': -1,
+        },
       },
     }
   } catch (error) {
@@ -68,6 +102,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   const { title, excerpt, content, publishedAt, featuredImage } = post;
 
+  // Get related posts
+  const relatedPosts = await getRelatedPosts(post, 3);
+
   // Generate structured data
   const articleSchema = generateArticleSchema({
     title,
@@ -76,13 +113,13 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     datePublished: publishedAt,
     dateModified: publishedAt,
     image: featuredImage || undefined,
-    url: `https://compareclash.com/posts/${slug}`
+    url: `https://compareclash.netlify.app/posts/${slug}`
   })
 
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: "https://compareclash.com" },
-    { name: "Blog", url: "https://compareclash.com/blog" },
-    { name: title, url: `https://compareclash.com/posts/${slug}` }
+    { name: "Home", url: "https://compareclash.netlify.app" },
+    { name: "Blog", url: "https://compareclash.netlify.app/blog" },
+    { name: title, url: `https://compareclash.netlify.app/posts/${slug}` }
   ])
 
   const richTextOptions = {
@@ -99,7 +136,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         );
       },
       [BLOCKS.HEADING_1]: (node: any, children: any) => (
-        <h1 className="text-4xl font-bold mb-6 mt-8 text-gray-900 dark:text-gray-100">{children}</h1>
+        <h2 className="text-3xl font-bold mb-6 mt-8 text-gray-900 dark:text-gray-100">{children}</h2>
       ),
       [BLOCKS.HEADING_2]: (node: any, children: any) => (
         <h2 className="text-3xl font-semibold mb-4 mt-6 text-gray-900 dark:text-gray-100">{children}</h2>
@@ -258,6 +295,37 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             <ShareButtons title={title} slug={slug} />
           </div>
         </footer>
+
+        {relatedPosts.length > 0 && (
+          <section className="mt-16">
+            <h2 className="text-2xl font-bold mb-8">Related Articles</h2>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {relatedPosts.map((relatedPost) => (
+                <Link key={relatedPost.slug} href={`/posts/${relatedPost.slug}`} className="group">
+                  <Card className="h-full overflow-hidden border-border/50 hover:border-border transition-colors">
+                    <CardContent className="p-6">
+                      <h3 className="text-lg font-semibold tracking-tight text-balance mb-3 group-hover:text-primary transition-colors">
+                        {relatedPost.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground text-pretty leading-relaxed mb-3">
+                        {relatedPost.excerpt}
+                      </p>
+                      <div className="flex items-center justify-between text-xs text-muted-foreground">
+                        <time dateTime={relatedPost.publishedAt}>
+                          {new Date(relatedPost.publishedAt).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
+                        </time>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
       </article>
     </>
   )

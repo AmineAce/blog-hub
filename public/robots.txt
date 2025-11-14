@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# Replace 'your-site.com' below with your actual domain
-Sitemap: https://compareclash.netlify.app//sitemap.xml
+Sitemap: https://compareclash.netlify.app/sitemap.xml

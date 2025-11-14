@@ -23,9 +23,49 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "CompareClash - Thoughts & Insights",
-  description: "A minimalist blog featuring articles on web development, design, and technology",
+  title: "CompareClash - Tech Product Comparisons",
+  description: "CompareClash: Unbiased headphone, phone & PC component comparisons | In-depth specs, pros/cons & buyer guides. Find your perfect tech—explore now!",
   generator: "v0.app",
+  metadataBase: new URL('https://compareclash.netlify.app'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: "CompareClash - Tech Product Comparisons",
+    description: "CompareClash: Unbiased headphone, phone & PC component comparisons | In-depth specs, pros/cons & buyer guides. Find your perfect tech—explore now!",
+    url: 'https://compareclash.netlify.app',
+    siteName: 'CompareClash',
+    images: [
+      {
+        url: '/logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'CompareClash - Tech Product Comparisons',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "CompareClash - Tech Product Comparisons",
+    description: "CompareClash: Unbiased headphone, phone & PC component comparisons | In-depth specs, pros/cons & buyer guides. Find your perfect tech—explore now!",
+    images: ['/logo.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'google2796cbfde3d331fb',
+  },
   icons: [
     {
       rel: "icon",

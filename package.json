@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "generate-search": "tsx scripts/generate-search-index.ts",
+    "indexnow": "tsx scripts/indexnow.ts",
     "build": "npm run generate-search && next build",
+    "build:indexnow": "npm run build && npm run indexnow",
     "dev": "npm run generate-search && next dev",
     "lint": "next lint",
     "start": "next start",

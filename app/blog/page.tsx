@@ -31,9 +31,9 @@ export default async function BlogPage() {
 
       <div className="container mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="mb-12">
-          <h1 className="text-4xl font-bold tracking-tight text-balance sm:text-5xl">All Posts</h1>
+          <h1 className="text-4xl font-bold tracking-tight text-balance sm:text-5xl">Tech Product Comparisons</h1>
           <p className="mt-4 text-lg text-muted-foreground text-pretty">
-            Thoughts, ideas, and insights on technology and design.
+            Unbiased reviews and comparisons of the latest tech products to help you make informed decisions.
           </p>
         </div>
 
