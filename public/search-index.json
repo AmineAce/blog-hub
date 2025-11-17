@@ -1,6 +1,18 @@
 {
   "documents": [
     {
+      "id": "apple-watch-se-2022-vs-google-pixel-watch-3-45mm-2025",
+      "slug": "apple-watch-se-2022-vs-google-pixel-watch-3-45mm-2025",
+      "title": "Apple Watch SE (2022) vs Google Pixel Watch 3 (45mm): 2025’s Tightest Budget Smartwatch Battle",
+      "excerpt": "$249 vs $400: After hundreds of hours on-wrist, we settle the 2025 budget smartwatch war—iOS safety vs Android fitness, 18 vs 48 hours, crash alerts vs ECG. Which wearable wins your wrist?",
+      "publishedAt": "2025-11-15T00:00",
+      "tags": [
+        "Smartwatch Comparison",
+        "Apple vs Google"
+      ],
+      "image": "https://images.ctfassets.net/07omnkoegg5r/1XwSHndncG4ZlQLZjUkDaB/7e5031cdd944f9b25e72e3548c11ea84/029224b0-0798-4818-bf1a-fbbad877f409.webp"
+    },
+    {
       "id": "bose-quietcomfort-ultra-vs-sony-wh-1000xm6-2025",
       "slug": "bose-quietcomfort-ultra-vs-sony-wh-1000xm6-2025",
       "title": "Bose QuietComfort Ultra vs Sony WH-1000XM6: 2025’s Closest ANC Battle",
@@ -81,6 +93,6 @@
       "image": "https://images.ctfassets.net/07omnkoegg5r/78lmRqRqGIRClblV8MtLpp/5fe73752302a932573f6b1da31ccf407/Transform-Your-Home-with-Smart-Sound-Why-the-Echo-Dot-5th-Gen-Is-a-Must-Have.webp"
     }
   ],
-  "updatedAt": "2025-11-14T13:22:13.075Z",
+  "updatedAt": "2025-11-17T10:41:11.173Z",
   "version": "1.0.0"
 }

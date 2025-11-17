@@ -6,17 +6,19 @@ import { SearchButton } from './search-button'
 export default function HeaderServer() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-2">
+      <div className="container mx-auto grid h-16 max-w-5xl grid-cols-3 items-center px-4 sm:px-6 lg:px-8">
+        {/* Empty div for left column */}
+        <div></div>
+        <div className="flex items-center justify-center gap-2">
           <Link href="/" aria-label="Go to homepage">
-            <Image src="/logo.png" alt="CompareClash" width={36} height={36} className="h-9 w-9" />
+            <Image src="/logo.png" alt="CompareClash" width={38} height={41} />
           </Link>
           <Link href="/" className="text-xl font-semibold tracking-tight hover:opacity-80 transition-opacity">
-            CompareClash
+            Compare|Clash
           </Link>
         </div>
 
-        <nav className="flex items-center gap-4">
+        <nav className="flex items-center justify-end gap-4">
           <Link
             href="/blog"
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"

@@ -6,6 +6,7 @@ interface ContentfulPost {
   excerpt: string;
   publishedAt: string;
   tags?: string[];
+  featuredImage?: string | null;
 }
 
 interface ScoredPost {

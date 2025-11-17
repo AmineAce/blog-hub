@@ -303,6 +303,18 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               {relatedPosts.map((relatedPost) => (
                 <Link key={relatedPost.slug} href={`/posts/${relatedPost.slug}`} className="group">
                   <Card className="h-full overflow-hidden border-border/50 hover:border-border transition-colors">
+                    {relatedPost.featuredImage && (
+                      <div className="relative aspect-video overflow-hidden">
+                        <Image
+                          src={relatedPost.featuredImage}
+                          alt={relatedPost.title}
+                          width={400}
+                          height={225}
+                          className="object-cover transition-transform group-hover:scale-105"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                      </div>
+                    )}
                     <CardContent className="p-6">
                       <h3 className="text-lg font-semibold tracking-tight text-balance mb-3 group-hover:text-primary transition-colors">
                         {relatedPost.title}
